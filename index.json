@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-24T16:55:45.895Z",
+  "skills": [
+    {
+      "name": "deep-research",
+      "description": "Multi-step web research that plans sub-questions, reads primary sources in full, cross-checks claims and reports findings with confidence levels and only verified citations. Use when the user asks for research, a comparison, a market or technical investigation, \"find out whether...\", or any answer that needs more than one search to be trustworthy.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url",
+        "brave_search"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "d84b6f9541c42769b9c3688270c7e1ad4fd94afe58c269805357d46c429020c2",
+          "size": 6092
+        },
+        {
+          "path": "references/output-format.md",
+          "sha256": "e82dbf31d255ed3731c2b7c71d67292b0fa9f06bb45c50f5d868f948e9fde4b8",
+          "size": 1797
+        },
+        {
+          "path": "references/source-evaluation.md",
+          "sha256": "6d92e8f574320b7f40f337bd19dac8f4f0b97b8be8d0c7cc3a86bc36bf48a3cb",
+          "size": 2899
+        }
+      ]
+    },
+    {
+      "name": "github",
+      "description": "Work effectively with HydraOps's GitHub tools - locate the exact owner/repo, read and summarize a repository, triage issues, review a pull request from its changed files, and draft issues, comments and release notes. Use whenever a task mentions GitHub, a repository, an issue, a pull request, a release or code hosted on GitHub.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "github"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "bcd70b6fe30ce64e252deef9850bd1c2262c9276bc7ba418a07cef1b7aa52e0b",
+          "size": 6075
+        },
+        {
+          "path": "references/pr-review.md",
+          "sha256": "0e083238b9d48ab6cfdef5f974ec6f10bc7f72f05295ab36917d19f1c5c7e64a",
+          "size": 2194
+        },
+        {
+          "path": "references/writing.md",
+          "sha256": "d60cb730e2040c9e92295750d49fd25bd6c89a4654f77f055da2f603e1f55ef5",
+          "size": 2096
+        }
+      ]
+    },
+    {
+      "name": "human-writing",
+      "description": "Rewrite or write text so it reads as natural human prose in any language - removes AI tells (filler openers, stock phrases, reflexive lists of three, em-dash overuse, hedging, generic conclusions, over-formatting), varies rhythm, adds concrete detail and keeps the author's voice. Use when the user asks to humanize, naturalize, de-AI, polish or \"make it sound like me\", and whenever writing emails, posts, bios or articles meant to be read as written by a person.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4554be5423d951640ff01c8423d183f3f29c541676f7c9293292100611de2be5",
+          "size": 5201
+        },
+        {
+          "path": "references/ai-tells.md",
+          "sha256": "9bae791f5e900afb35b58bc64508e5a17bd92d128ca33960afd9abc373ec76cf",
+          "size": 3430
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "2f00ffab4074c9de8ca411eda36c75958607c89e52f0390ff581bfd5288967f3",
+          "size": 3588
+        }
+      ]
+    },
+    {
+      "name": "seo",
+      "description": "On-page SEO audit and optimization for a live URL or a draft - search intent, title and meta description, headings, keyword research without paid tools, internal links, structured data, Core Web Vitals notes and content quality - ending in a prioritized fix list. Use when the user asks to audit, optimize or \"improve the SEO\" of a page, post or landing page, or wants keywords or titles for search.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "fetch_url",
+        "web_search"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "3ac03a3578f828ee6e873bcadb89b7f829a92398cfd878c6be625d2f11a5c136",
+          "size": 5972
+        },
+        {
+          "path": "references/audit-checklist.md",
+          "sha256": "b6b3b8686ba04425cfe6e40abe15df0aaefc8d80e6f5eaa4364045c92c2f8a6b",
+          "size": 2847
+        },
+        {
+          "path": "references/keyword-research.md",
+          "sha256": "561228ec1ed88c71e59f81f0f76cc91697be57a27288332a91963b0bd3a3d7b1",
+          "size": 2517
+        }
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "description": "How to write a new HydraOps skill (Agent Skills format) - deciding whether a skill is warranted, naming the folder, writing frontmatter and a description that triggers correctly, keeping SKILL.md short with reference files, and the safety rules every skill must follow. Use when the user asks to create, draft or package a skill, or when you have learned a repeatable multi-step procedure worth reusing across tasks.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4b147728a97f0b12d3bef5e4ad939bf4486c73f7e9453aa82dff91f5eddea3bf",
+          "size": 6551
+        },
+        {
+          "path": "templates/SKILL.template.md",
+          "sha256": "fefd52401064658e853072da2a8b6a80fd42e8a820c288d623a0b6fbd4631aa5",
+          "size": 868
+        }
+      ]
+    },
+    {
+      "name": "social-instagram",
+      "description": "Create Instagram content - Reels scripts with a 1-2 second hook, carousel slide copy, captions, on-screen text, hashtags (within the current per-post limit), Stories ideas and a posting plan. Use when the user wants an Instagram post, Reel, carousel, caption, hashtags or content calendar, or to adapt content for Instagram.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "3c6e83d6245b71b8879a9130ca789c170a8f2c13f5140319d9a21d2091fe25e4",
+          "size": 4197
+        },
+        {
+          "path": "templates/reel-and-carousel.md",
+          "sha256": "57d3a3ff84fe084e060cec96b8b98f07aa1b3aa218ea692e08854889fbac407b",
+          "size": 1373
+        }
+      ]
+    },
+    {
+      "name": "social-linkedin",
+      "description": "Write LinkedIn content - professional text posts, document carousels (PDF), company page updates, comments and article outlines - with hooks for the \"see more\" cutoff, structure, hashtags, cadence and repurposing. Use when the user wants a LinkedIn post, carousel, announcement, thought-leadership piece, job or launch post, or to adapt content for LinkedIn.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "b2ba7f773a29b3a4fa9b07507aa601150a54e5172b69265007f8cec3bfc1d585",
+          "size": 4870
+        },
+        {
+          "path": "templates/post-and-carousel.md",
+          "sha256": "56f94aaff928ab596f9492a405f8a8537d7b8e0e693a053acbb6a5a926daaf80",
+          "size": 1162
+        }
+      ]
+    },
+    {
+      "name": "social-tiktok",
+      "description": "Write TikTok short-video scripts with a hook in the first 1-2 seconds, on-screen text, captions, hashtags and posting plan, plus trend adaptation and repurposing. Use when the user wants a TikTok video idea, script, caption or hashtags, a content plan for TikTok, or to turn other content into TikToks.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "ce50ffa5a31e810d3777fb28b5229decac88611131418cfbc4ed201a455f5fc9",
+          "size": 4410
+        },
+        {
+          "path": "templates/short-video-script.md",
+          "sha256": "32d70acb9dd8ed94713a766fd2fee53d32fa2f10f3a2e00a856f7ec006ddb446",
+          "size": 1188
+        }
+      ]
+    },
+    {
+      "name": "social-x",
+      "description": "Write posts, threads and replies for X (formerly Twitter) - hooks, thread structure, reply strategy, link placement, hashtags, cadence and repurposing. Use when the user wants a tweet, an X post or thread, a reply, a launch announcement for X, or to adapt other content for X.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "d21af6d833de04ff80e9dd828ee9ea9e179de1d55f61278cee591e4905ac7446",
+          "size": 4941
+        },
+        {
+          "path": "templates/post-and-thread.md",
+          "sha256": "9f7a7801965536731020780f5f215d5962bbdb88511261212d2da19a6fb87fc8",
+          "size": 1171
+        }
+      ]
+    },
+    {
+      "name": "social-youtube",
+      "description": "Plan and write YouTube content - titles, descriptions, chapters, thumbnail text, tags, long-form video outlines and Shorts scripts - plus competitor analysis from transcripts. Use when the user wants a YouTube video idea, script, title, description, thumbnail concept, Shorts script, or to analyze or repurpose a YouTube video.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "web_search",
+        "fetch_url",
+        "youtube_transcript"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "5dc98e6c14e10efebd461eef54bfc5e208c898ea680bcd4b879a844688fdd056",
+          "size": 5405
+        },
+        {
+          "path": "templates/video-package.md",
+          "sha256": "29296ef5f3c227df79a62079684c30b0df44b7324165c6a218a84a9465b55b26",
+          "size": 1559
+        }
+      ]
+    }
+  ]
+}
