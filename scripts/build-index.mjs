@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "index.json");
 // Top-level folders that are not skills.
-const IGNORED_DIRS = new Set(["scripts", "node_modules"]);
+const IGNORED_DIRS = new Set(["scripts", "img", "node_modules"]);
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 const errors = [];

@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://hydraops.org"><img src="img/banner.png" alt="HydraOps Skills — the official skills catalog for HydraOps agents" width="100%"></a>
+</p>
+
 # HydraOps Skills
 
 The official skills catalog for [HydraOps](https://github.com/TraX22/HydraOps), the
@@ -5,8 +9,7 @@ open-source multi-agent desktop app. Skills give HydraOps agents reusable proced
 how to research properly, audit a page for SEO, review a pull request, write for a given
 social network, and so on.
 
-You can install these skills from inside the app (**Tools → Skills**, *Herramientas → Skills*
-in Spanish) or copy them by hand.
+You can install these skills from inside the app (**Tools → Skills**) or copy them by hand.
 
 ## Skills
 
