@@ -26,6 +26,26 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [social-instagram](social-instagram/) | Reels, carousels, captions and Stories |
 | [social-linkedin](social-linkedin/) | Professional posts and document carousels |
 
+## Connections
+
+The catalog also carries **connection presets**: ready-made configuration for MCP servers
+that other people publish, so an agent can drive an application or a service. They show
+up in the app under **Tools → Connections** (HydraOps 0.1.45 or newer).
+
+| Connection | What it gives the agent | Started with |
+|---|---|---|
+| [blender](presets/blender/) | Build and edit 3D scenes in your Blender | `uvx` |
+| [documents](presets/documents/) | Web pages, PDFs and Office files as Markdown | `uvx` |
+| [playwright](presets/playwright/) | A real browser: pages with JavaScript, clicks, forms, screenshots | `npx` |
+
+A preset is **configuration, not code**. `presets/<name>/preset.json` says how the server
+is started (only through `uvx`, `npx` or `docker`, or an `https` URL), with the program's
+version pinned, what it needs on the computer, and what each of its tools does
+(`toolRisk`: `neutral`, `read`, `acts` or `both`). That classification is what lets
+HydraOps run read-only tools freely and hold the ones that act for approval only when
+they should be. `README.md` next to it explains the choices. See
+[the HydraOps manual](https://github.com/TraX22/HydraOps/blob/main/docs/en/09-tools.md#connections-ready-made-mcp-servers).
+
 ## Format
 
 Each skill is a folder following the open [Agent Skills](https://agentskills.io) format:
@@ -87,8 +107,11 @@ Contributions are welcome through pull requests.
 - No secrets, personal data, URLs with tokens, or instructions that bypass safety
   controls or tell an agent to ignore its user.
 - Write in English.
-- Run `node scripts/build-index.mjs` to regenerate `index.json`; it fails if a skill
-  breaks the rules above.
+- A connection preset is a folder in `presets/` with `preset.json` and `README.md` only.
+  Pin the server's version, classify **every** tool the server publishes, and say in the
+  README why a tool got its class.
+- Run `node scripts/build-index.mjs` to regenerate `index.json`; it fails if a skill or
+  a preset breaks the rules above.
 
 Every pull request is reviewed before merge.
 

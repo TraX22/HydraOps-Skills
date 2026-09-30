@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Builds index.json for the skills catalog.
-// Walks every top-level skill folder, parses the SKILL.md frontmatter, hashes every
-// file and writes a sorted index. No dependencies.
+// Builds index.json for the catalog: the skills (every top-level folder with a SKILL.md)
+// and the connection presets (presets/<name>/preset.json). Parses, validates, hashes
+// every file and writes a sorted index. No dependencies.
 //
 // Fails (exit 1) when:
 //   - a folder has no SKILL.md or no frontmatter
@@ -17,7 +17,12 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "index.json");
 // Top-level folders that are not skills.
-const IGNORED_DIRS = new Set(["scripts", "img", "node_modules"]);
+const IGNORED_DIRS = new Set(["scripts", "img", "node_modules", "presets"]);
+// Connection presets live in presets/<name>/ (preset.json + README.md).
+const PRESETS_DIR = join(ROOT, "presets");
+const PRESET_FILES = new Set(["preset.json", "README.md"]);
+const PRESET_LAUNCHERS = new Set(["uvx", "npx", "docker"]);
+const TOOL_CLASSES = new Set(["neutral", "read", "acts", "both"]);
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 const errors = [];
@@ -152,6 +157,69 @@ for (const folder of topDirs) {
   });
 }
 
+// ── Connection presets ──
+// Fails when: preset.json is missing or not JSON; `name` differs from the folder; the
+// server is not started with uvx / npx / docker (or is not an https url); an argument is
+// not a plain string; a toolRisk value is not neutral | read | acts | both; or the
+// folder holds anything other than preset.json and README.md.
+const presets = [];
+let presetDirs = [];
+try {
+  presetDirs = readdirSync(PRESETS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+} catch {
+  // no presets folder
+}
+for (const folder of presetDirs) {
+  const dir = join(PRESETS_DIR, folder);
+  let preset;
+  try {
+    preset = JSON.parse(readFileSync(join(dir, "preset.json"), "utf8"));
+  } catch {
+    errors.push(`presets/${folder}: missing or invalid preset.json`);
+    continue;
+  }
+  if (preset.name !== folder) errors.push(`presets/${folder}: name "${preset.name}" does not match the folder`);
+  if (!NAME_RE.test(folder) || folder.length > 64) errors.push(`presets/${folder}: invalid name`);
+  for (const key of ["title", "description", "version"]) {
+    if (typeof preset[key] !== "string" || !preset[key].trim()) errors.push(`presets/${folder}: ${key} is missing`);
+  }
+  const server = preset.server ?? {};
+  let launcher = "none";
+  if (typeof server.command === "string") {
+    launcher = server.command;
+    if (!PRESET_LAUNCHERS.has(server.command)) errors.push(`presets/${folder}: launcher "${server.command}" is not allowed`);
+    if (!Array.isArray(server.args) || !server.args.length || !server.args.every((a) => typeof a === "string")) {
+      errors.push(`presets/${folder}: server.args must be a list of strings`);
+    }
+  } else if (typeof server.url !== "string" || !server.url.startsWith("https://")) {
+    errors.push(`presets/${folder}: server needs a command or an https url`);
+  }
+  const toolRisk = preset.toolRisk && typeof preset.toolRisk === "object" ? preset.toolRisk : {};
+  for (const [tool, cls] of Object.entries(toolRisk)) {
+    if (!TOOL_CLASSES.has(cls)) errors.push(`presets/${folder}: toolRisk.${tool} is "${cls}"`);
+  }
+  const files = [];
+  for (const full of listFiles(dir)) {
+    const rel = relative(dir, full).split(sep).join("/");
+    if (!PRESET_FILES.has(rel)) {
+      errors.push(`presets/${folder}/${rel}: only preset.json and README.md are allowed`);
+      continue;
+    }
+    const buf = readFileSync(full);
+    files.push({ path: rel, sha256: createHash("sha256").update(buf).digest("hex"), size: statSync(full).size });
+  }
+  files.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  presets.push({
+    name: folder,
+    title: String(preset.title ?? folder),
+    description: String(preset.description ?? "").trim(),
+    version: String(preset.version ?? ""),
+    launcher,
+    toolCount: Object.keys(toolRisk).length,
+    files,
+  });
+}
+
 if (errors.length) {
   console.error("build-index: validation failed:");
   for (const e of errors) console.error("  - " + e);
@@ -160,6 +228,6 @@ if (errors.length) {
 
 skills.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
 
-const index = { schema: 1, generatedAt: new Date().toISOString(), skills };
+const index = { schema: 1, generatedAt: new Date().toISOString(), skills, presets };
 writeFileSync(OUT, JSON.stringify(index, null, 2) + "\n");
-console.log(`build-index: wrote ${relative(ROOT, OUT)} with ${skills.length} skills`);
+console.log(`build-index: wrote ${relative(ROOT, OUT)} with ${skills.length} skills and ${presets.length} presets`);

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "name": "playwright",
+  "title": "Playwright",
+  "version": "1.0.0",
+  "author": "HydraOps",
+  "description": "A real browser for the agent: open pages that need JavaScript, click, fill in forms and take screenshots, through Microsoft's Playwright server.",
+  "homepage": "https://github.com/microsoft/playwright-mcp",
+  "server": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@playwright/mcp@0.0.83",
+      "--headless",
+      "--isolated",
+      "--blocked-origins",
+      "http://localhost:3000;http://127.0.0.1:3000;http://localhost:9099;http://127.0.0.1:9099;http://localhost:8080;http://127.0.0.1:8080"
+    ]
+  },
+  "requires": {
+    "notes": [
+      "Node.js (for npx).",
+      "Downloads a browser (about 150 MB) the first time it is used."
+    ],
+    "setup": []
+  },
+  "toolRisk": {
+    "browser_close": "neutral",
+    "browser_resize": "neutral",
+    "browser_console_messages": "read",
+    "browser_handle_dialog": "both",
+    "browser_emulate_media": "neutral",
+    "browser_evaluate": "both",
+    "browser_file_upload": "both",
+    "browser_drop": "both",
+    "browser_find": "read",
+    "browser_fill_form": "both",
+    "browser_press_key": "both",
+    "browser_type": "both",
+    "browser_navigate": "read",
+    "browser_navigate_back": "read",
+    "browser_network_requests": "read",
+    "browser_network_request": "read",
+    "browser_run_code_unsafe": "both",
+    "browser_take_screenshot": "read",
+    "browser_snapshot": "read",
+    "browser_click": "both",
+    "browser_drag": "both",
+    "browser_hover": "read",
+    "browser_select_option": "both",
+    "browser_tabs": "read",
+    "browser_wait_for": "neutral"
+  },
+  "tips": [
+    "Use it for pages fetch_url cannot read (rendered with JavaScript, or behind a bot check)."
+  ]
+}

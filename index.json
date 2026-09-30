@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-24T16:55:45.895Z",
+  "generatedAt": "2026-09-30T15:46:17.130Z",
   "skills": [
     {
       "name": "deep-research",
@@ -234,6 +234,68 @@
           "path": "templates/video-package.md",
           "sha256": "29296ef5f3c227df79a62079684c30b0df44b7324165c6a218a84a9465b55b26",
           "size": 1559
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "blender",
+      "title": "Blender",
+      "description": "Build and edit 3D scenes from the chat: objects, materials, lights, viewport captures and renders, through the MCP for Blender server.",
+      "version": "1.0.0",
+      "launcher": "uvx",
+      "toolCount": 36,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "53c933982e82ace595942c6858bb518902a70963556d7723efd0ebf373d37e05",
+          "size": 1328
+        },
+        {
+          "path": "preset.json",
+          "sha256": "1316c8a62f7031cbc3feab513ebea8c765f7aa6357a25654ca01bdcbe2f63594",
+          "size": 2545
+        }
+      ]
+    },
+    {
+      "name": "documents",
+      "title": "Documents",
+      "description": "Turn web pages, PDFs and Office files into clean Markdown an agent can read, through Microsoft's markitdown server.",
+      "version": "1.0.0",
+      "launcher": "uvx",
+      "toolCount": 1,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "e943199a373ec128ae3b4414214892c5bc68caeebe8801f3d4a99c1cce0facb3",
+          "size": 675
+        },
+        {
+          "path": "preset.json",
+          "sha256": "ad8998e8e640acae7302baa55467e857d67f880f487c876483822389b3d6b934",
+          "size": 606
+        }
+      ]
+    },
+    {
+      "name": "playwright",
+      "title": "Playwright",
+      "description": "A real browser for the agent: open pages that need JavaScript, click, fill in forms and take screenshots, through Microsoft's Playwright server.",
+      "version": "1.0.0",
+      "launcher": "npx",
+      "toolCount": 25,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "3da24bcc7507107412e647d901d1b36213a754ff8f782103ba1569861cf39170",
+          "size": 966
+        },
+        {
+          "path": "preset.json",
+          "sha256": "0bf73442fed706d83638f0b6b1017d64a7702d22eb26680f65f84b37f2da0f4c",
+          "size": 1784
         }
       ]
     }

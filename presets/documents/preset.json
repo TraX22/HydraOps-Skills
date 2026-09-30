@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "name": "documents",
+  "title": "Documents",
+  "version": "1.0.0",
+  "author": "HydraOps",
+  "description": "Turn web pages, PDFs and Office files into clean Markdown an agent can read, through Microsoft's markitdown server.",
+  "homepage": "https://github.com/microsoft/markitdown",
+  "server": {
+    "command": "uvx",
+    "args": [
+      "markitdown-mcp==0.0.1a7"
+    ]
+  },
+  "requires": {
+    "notes": [],
+    "setup": []
+  },
+  "toolRisk": {
+    "convert_to_markdown": "both"
+  },
+  "tips": [
+    "Give it an http(s) address or a file:// path of a document on this computer."
+  ]
+}
