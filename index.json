@@ -1,7 +1,70 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-30T15:46:17.130Z",
+  "generatedAt": "2026-09-30T16:41:55.447Z",
   "skills": [
+    {
+      "name": "blender-game-export",
+      "description": "Prepares a Blender model for a game engine and exports it as glTF/GLB or FBX through the Blender connection - applied transforms, origin and pivot, scale and axes, triangle count, normals, UVs, material slots, naming, and a check of the exported file. Use when the user wants a Blender model in Unity, Godot, Unreal or a web viewer, asks to export to GLB, glTF or FBX, or reports that an exported model arrives rotated, tiny, huge, untextured or with broken shading.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "blender"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "52cccb31702069b20690f27882261a2618a1f218f1c23cae1050e8e9b8fd3398",
+          "size": 6401
+        },
+        {
+          "path": "references/export-recipes.md",
+          "sha256": "93bcf6c50b88a34986010ed57cef211f059c1c1329b0e5ac98e12a87b6c7b2f5",
+          "size": 5615
+        }
+      ]
+    },
+    {
+      "name": "blender-materials-render",
+      "description": "Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through the Blender connection. Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "blender"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "9239911eb96cd0f08b0daadd04f818ca5c1088aebc32423eb66acc111f35310d",
+          "size": 7108
+        },
+        {
+          "path": "references/shading-and-render.md",
+          "sha256": "160659bacea8b5f57f887fb43aae196ebc76c55340c95c7ea75040fe6f5ddd5b",
+          "size": 7024
+        }
+      ]
+    },
+    {
+      "name": "blender-modeling",
+      "description": "Builds and edits 3D models in the user's Blender through the Blender connection - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "blender"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6d944e593e4da4918932233bb7833ae7a077106147d90a675b1bbb14513df7be",
+          "size": 6523
+        },
+        {
+          "path": "references/bpy-patterns.md",
+          "sha256": "9a499b17654e3b3841fb744731880c118eb4199ec7838df27114601947e729e7",
+          "size": 6819
+        }
+      ]
+    },
     {
       "name": "deep-research",
       "description": "Multi-step web research that plans sub-questions, reads primary sources in full, cross-checks claims and reports findings with confidence levels and only verified citations. Use when the user asks for research, a comparison, a market or technical investigation, \"find out whether...\", or any answer that needs more than one search to be trustworthy.",

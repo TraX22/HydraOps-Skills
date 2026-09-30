@@ -20,6 +20,9 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [github](github/) | Reading repos, triaging issues, reviewing PRs and writing on GitHub |
 | [human-writing](human-writing/) | Natural, human-sounding prose in any language |
 | [skill-creator](skill-creator/) | How to write a new skill for HydraOps |
+| [blender-modeling](blender-modeling/) | Building and editing 3D models in Blender, in small verified steps (needs the Blender connection) |
+| [blender-materials-render](blender-materials-render/) | Materials that actually render, lighting, camera and a final image in Blender |
+| [blender-game-export](blender-game-export/) | Preparing a Blender model and exporting GLB or FBX for Unity, Godot, Unreal or the web |
 | [social-x](social-x/) | Posts, threads and replies for X |
 | [social-youtube](social-youtube/) | Titles, descriptions, chapters, thumbnails, scripts and Shorts |
 | [social-tiktok](social-tiktok/) | Short-video scripts, captions and hashtags for TikTok |
