@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-30T16:41:55.447Z",
+  "generatedAt": "2026-09-30T17:29:29.592Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -20,6 +20,27 @@
           "path": "references/export-recipes.md",
           "sha256": "93bcf6c50b88a34986010ed57cef211f059c1c1329b0e5ac98e12a87b6c7b2f5",
           "size": 5615
+        }
+      ]
+    },
+    {
+      "name": "blender-low-poly",
+      "description": "Builds stylized low-poly models and scenes in Blender through the Blender connection - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "blender"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "7ea6b68e1e06982dfdb41c51a8725d24786562d0955158414a99527283e4e2cc",
+          "size": 7284
+        },
+        {
+          "path": "references/low-poly-recipes.md",
+          "sha256": "0778c3493be87836797e7115b21ddcea3d4059debe627a4999dadc0e53e7818a",
+          "size": 13641
         }
       ]
     },
