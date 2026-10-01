@@ -39,6 +39,7 @@ up in the app under **Tools → Connections** (HydraOps 0.1.45 or newer).
 | Connection | What it gives the agent | Started with |
 |---|---|---|
 | [blender](presets/blender/) | Build and edit 3D scenes in your Blender | `uvx` |
+| [blenderlab](presets/blenderlab/) | The official Blender Lab server: code, scene and file summaries, API and manual search, captures, renders | `uvx` (from git) |
 | [documents](presets/documents/) | Web pages, PDFs and Office files as Markdown | `uvx` |
 | [playwright](presets/playwright/) | A real browser: pages with JavaScript, clicks, forms, screenshots | `npx` |
 

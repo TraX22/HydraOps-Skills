@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-30T17:29:29.592Z",
+  "generatedAt": "2026-10-01T12:28:55.425Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -340,6 +340,26 @@
           "path": "preset.json",
           "sha256": "1316c8a62f7031cbc3feab513ebea8c765f7aa6357a25654ca01bdcbe2f63594",
           "size": 2545
+        }
+      ]
+    },
+    {
+      "name": "blenderlab",
+      "title": "BlenderLab",
+      "description": "The official MCP server from Blender Lab (Blender Foundation): run Python in your Blender, inspect the scene and the blend file, search the bundled Python API reference and user manual, capture the window and render.",
+      "version": "1.0.0",
+      "launcher": "uvx",
+      "toolCount": 26,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "ae82f1e3fc720913d1fe669032413b93130780ee818be8551020da12ca46a910",
+          "size": 2474
+        },
+        {
+          "path": "preset.json",
+          "sha256": "5647723f074d4dd2f873b43df643d7f11239f86563a1abc7da8923c9382050c7",
+          "size": 3431
         }
       ]
     },

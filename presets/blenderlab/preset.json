@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "name": "blenderlab",
+  "title": "BlenderLab",
+  "version": "1.0.0",
+  "author": "HydraOps",
+  "description": "The official MCP server from Blender Lab (Blender Foundation): run Python in your Blender, inspect the scene and the blend file, search the bundled Python API reference and user manual, capture the window and render.",
+  "homepage": "https://www.blender.org/lab/mcp-server/",
+  "server": {
+    "command": "uvx",
+    "args": [
+      "--from",
+      "git+https://projects.blender.org/lab/blender_mcp.git@2cea8d566dde07fbac28a61d698909d69724e853#subdirectory=mcp",
+      "blender-mcp"
+    ],
+    "env": {
+      "BLENDER_MCP_HOST": "localhost",
+      "BLENDER_MCP_PORT": "9876"
+    }
+  },
+  "requires": {
+    "notes": [
+      "Blender 5.1 or newer, open while the agent works.",
+      "Git (uvx fetches the server from Blender's repository); the first start takes about a minute.",
+      "The official \"MCP\" add-on from Blender Lab, installed and enabled in Blender, with \"Allow Online Access\" on in Blender's System preferences and its server started (the add-on's preferences have a start button and an auto-start option).",
+      "It uses port 9876, the same as the \"MCP for Blender\" add-on of the Blender connection: enable only one of the two add-ons, or change the port in the add-on's preferences and in this connection (BLENDER_MCP_PORT)."
+    ],
+    "setup": [
+      {
+        "run": "https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip",
+        "then": "Download that file and drag it into the Blender window (or Edit → Preferences → Get Extensions → Install from Disk), then enable \"MCP\" and start its server from the add-on's preferences."
+      }
+    ]
+  },
+  "toolRisk": {
+    "execute_blender_code": "acts",
+    "execute_blender_code_for_cli": "acts",
+    "get_blendfile_summary_datablocks": "neutral",
+    "get_blendfile_summary_datablocks_for_cli": "read",
+    "get_blendfile_summary_missing_files": "neutral",
+    "get_blendfile_summary_missing_files_for_cli": "read",
+    "get_blendfile_summary_of_linked_libraries": "neutral",
+    "get_blendfile_summary_of_linked_libraries_for_cli": "read",
+    "get_blendfile_summary_path_info": "neutral",
+    "get_blendfile_summary_path_info_for_cli": "read",
+    "get_blendfile_summary_usage_guess": "neutral",
+    "get_blendfile_summary_usage_guess_for_cli": "read",
+    "get_object_detail_summary": "neutral",
+    "get_objects_summary": "neutral",
+    "get_python_api_docs": "neutral",
+    "get_screenshot_of_area_as_image": "neutral",
+    "get_screenshot_of_window_as_image": "neutral",
+    "get_screenshot_of_window_as_json": "neutral",
+    "jump_to_tab_by_name": "acts",
+    "jump_to_tab_by_space_type": "acts",
+    "jump_to_view3d_object_by_name": "acts",
+    "jump_to_view3d_object_data_by_name": "acts",
+    "render_thumbnail_to_path": "acts",
+    "render_viewport_to_path": "acts",
+    "search_api_docs": "neutral",
+    "search_manual_docs": "neutral"
+  },
+  "tips": [
+    "The tool names differ from the Blender connection's: get_objects_summary and get_object_detail_summary instead of get_scene_info and get_object_info, get_screenshot_of_window_as_image for captures, get_python_api_docs and search_api_docs to check the API.",
+    "Blender's own warning applies: the server runs model-written Python in your Blender with only a light guard. Keep backups of files you care about."
+  ]
+}
