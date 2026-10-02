@@ -1,6 +1,6 @@
 # Low-poly recipes
 
-Written against Blender 4.2 - 5.x. Each `execute_blender_code` call should carry the
+Written against Blender 4.2 - 5.x. Nothing survives between `execute_blender_code` calls, so each one carries the
 helpers it uses: copy the "Helpers" block to the top of your script, then the recipe.
 All sizes are meters. Every recipe uses a fixed random seed so a re-run gives the same
 model.

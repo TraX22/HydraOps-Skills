@@ -1,7 +1,8 @@
 # Export recipes
 
 Written against Blender 4.2 - 5.x. Exporter keywords are the part of the API that
-changes most: when one is rejected, look the operator up with `bpy_api_lookup`.
+changes most: when one is rejected, look the operator up with the API tool of your
+connection (`get_python_api_docs` on BlenderLab, `bpy_api_lookup` on Blender).
 
 ## Inspect
 
@@ -190,4 +191,4 @@ for o in new:                           # remove only what the import created
 Baking needs Cycles, a UV map, and an image texture node selected in the material as the
 bake target. It is slow and has many settings; do it only when the user wants the
 procedural look in the engine, tell them it takes time, and check the operator with
-`bpy_api_lookup` (`bpy.ops.object.bake`) before writing the script.
+the API tool of your connection (`bpy.ops.object.bake`) before writing the script.

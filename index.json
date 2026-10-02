@@ -1,88 +1,92 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-01T12:28:55.425Z",
+  "generatedAt": "2026-10-02T13:28:49.625Z",
   "skills": [
     {
       "name": "blender-game-export",
-      "description": "Prepares a Blender model for a game engine and exports it as glTF/GLB or FBX through the Blender connection - applied transforms, origin and pivot, scale and axes, triangle count, normals, UVs, material slots, naming, and a check of the exported file. Use when the user wants a Blender model in Unity, Godot, Unreal or a web viewer, asks to export to GLB, glTF or FBX, or reports that an exported model arrives rotated, tiny, huge, untextured or with broken shading.",
+      "description": "Prepares a Blender model for a game engine and exports it as glTF/GLB or FBX through a Blender connection (the official Blender Lab server or MCP for Blender) - applied transforms, origin and pivot, scale and axes, triangle count, normals, UVs, material slots, naming, and a check of the exported file. Use when the user wants a Blender model in Unity, Godot, Unreal or a web viewer, asks to export to GLB, glTF or FBX, or reports that an exported model arrives rotated, tiny, huge, untextured or with broken shading.",
       "author": "HydraOps",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "tools": [
+        "blenderlab",
         "blender"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "52cccb31702069b20690f27882261a2618a1f218f1c23cae1050e8e9b8fd3398",
-          "size": 6401
+          "sha256": "61d9a5c61412cfeac01ebdbbd62029a6b76b7c9a502edef4e25087a4771600ee",
+          "size": 8567
         },
         {
           "path": "references/export-recipes.md",
-          "sha256": "93bcf6c50b88a34986010ed57cef211f059c1c1329b0e5ac98e12a87b6c7b2f5",
-          "size": 5615
+          "sha256": "bf717664b8b09a837d8f6658d4b02cbf3f403c89637d65ef3b957d8daeb5b64a",
+          "size": 5712
         }
       ]
     },
     {
       "name": "blender-low-poly",
-      "description": "Builds stylized low-poly models and scenes in Blender through the Blender connection - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
+      "description": "Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
       "author": "HydraOps",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "tools": [
+        "blenderlab",
         "blender"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "7ea6b68e1e06982dfdb41c51a8725d24786562d0955158414a99527283e4e2cc",
-          "size": 7284
+          "sha256": "c0cf22d4d6f173f0a698a4aebca84515e162eda4932460cf03705cffaa27285d",
+          "size": 9340
         },
         {
           "path": "references/low-poly-recipes.md",
-          "sha256": "0778c3493be87836797e7115b21ddcea3d4059debe627a4999dadc0e53e7818a",
-          "size": 13641
+          "sha256": "ae9671bb03b681e3e37e5e73c5f35fa7363f74fce56c89f260e41e3587179bbe",
+          "size": 13670
         }
       ]
     },
     {
       "name": "blender-materials-render",
-      "description": "Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through the Blender connection. Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.",
+      "description": "Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official Blender Lab server or MCP for Blender). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.",
       "author": "HydraOps",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "tools": [
+        "blenderlab",
         "blender"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "9239911eb96cd0f08b0daadd04f818ca5c1088aebc32423eb66acc111f35310d",
-          "size": 7108
+          "sha256": "749c12da8f78d3b00db6aa9da5247dee28b00cd13428a270dc80e48e9b8076f1",
+          "size": 9331
         },
         {
           "path": "references/shading-and-render.md",
-          "sha256": "160659bacea8b5f57f887fb43aae196ebc76c55340c95c7ea75040fe6f5ddd5b",
-          "size": 7024
+          "sha256": "819b89e82693d7b43595269e134fa8b62bbfd9f43bd406d1139d7d2eddf4faa7",
+          "size": 7106
         }
       ]
     },
     {
       "name": "blender-modeling",
-      "description": "Builds and edits 3D models in the user's Blender through the Blender connection - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
+      "description": "Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
       "author": "HydraOps",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "tools": [
+        "blenderlab",
         "blender"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "6d944e593e4da4918932233bb7833ae7a077106147d90a675b1bbb14513df7be",
-          "size": 6523
+          "sha256": "bf8798e3a7bfae09fcb05af1a5bcdde4796baa2d30c811908018d946df99c31d",
+          "size": 8635
         },
         {
           "path": "references/bpy-patterns.md",
-          "sha256": "9a499b17654e3b3841fb744731880c118eb4199ec7838df27114601947e729e7",
-          "size": 6819
+          "sha256": "80129ca0fde9d72e31aa3e7572f436d8de7493e752ff8846eeb3ed9a84a234dc",
+          "size": 6986
         }
       ]
     },

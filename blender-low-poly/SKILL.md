@@ -1,10 +1,10 @@
 ---
 name: blender-low-poly
-description: Builds stylized low-poly models and scenes in Blender through the Blender connection - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
+description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.0.0
-  tools: [blender]
+  version: 1.1.0
+  tools: [blenderlab, blender]
 ---
 
 # Low-poly modeling in Blender
@@ -16,6 +16,33 @@ A realistic model with fewer polygons is not low poly; it is a rough realistic m
 The general working loop (look at the scene, plan in parts, one part per call, screenshot
 after each step, never delete what you did not create) is in the `blender-modeling`
 skill: follow it. This skill says what is different for low poly.
+
+## Which Blender connection you have
+
+HydraOps offers two Blender connections. Your tool names tell you which one you were
+given; use the names of that column and never call a tool of the other.
+
+| What you need | **BlenderLab**, the official Blender Lab server: tools `blenderlab_…` | **Blender**, MCP for Blender: tools `blender_…` |
+|---|---|---|
+| What is in the scene | `get_objects_summary` | `get_scene_info` |
+| One object in detail | `get_object_detail_summary` (by `name`) | `get_object_info` |
+| The file: saved or not, its path | `get_blendfile_summary_path_info` | code: `bpy.data.filepath` |
+| Run Python | `execute_blender_code` | `execute_blender_code` |
+| See the 3D viewport | `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"` (whole window: `get_screenshot_of_window_as_image`) | `get_viewport_screenshot` |
+| Point the viewport at an object | `jump_to_view3d_object_by_name` | code |
+| Check the Python API | `get_python_api_docs` (an identifier such as `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs` | `bpy_api_lookup`, `describe_node_type` |
+| Quick render | `render_thumbnail_to_path`, `render_viewport_to_path`: the image goes to Blender's temp folder and the result gives the real path | code |
+| Export | code | `export_scene`, or code |
+| Asset libraries, 3D generators | none | Poly Haven, Sketchfab, Poly Pizza; Hyper3D, Hunyuan3D, Tripo |
+
+On both, do not count on anything surviving between `execute_blender_code` calls (carry
+your helpers in each script), and what the script prints comes back. On BlenderLab you
+can also assign a dict to `result` for structured data, and its guard refuses a few
+operators (quitting Blender, factory resets).
+
+If neither set of tools is available, stop and say so: the user has to install a Blender
+connection (Tools → Connections), give it to this agent, and have Blender open with that
+connection's add-on running. Do not describe work as done when you could not do it.
 
 ## The style, as rules
 

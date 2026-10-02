@@ -1,7 +1,8 @@
 # Shading, lighting and render code
 
 Written against Blender 4.2 - 5.x. When a name is rejected, check it with
-`bpy_api_lookup` or `describe_node_type` instead of guessing variants.
+the API tool of your connection (`get_python_api_docs` on BlenderLab; `bpy_api_lookup` or
+`describe_node_type` on Blender) instead of guessing variants.
 
 ## A material that renders
 

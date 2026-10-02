@@ -1,7 +1,8 @@
 # bpy patterns for modeling
 
 Written against Blender 4.2 - 5.x. Names do change between versions: when a call fails
-with an attribute or keyword error, check it with `bpy_api_lookup` instead of trying
+with an attribute or keyword error, check it with the API tool of your connection
+(`get_python_api_docs` on BlenderLab, `bpy_api_lookup` on Blender) instead of trying
 variants blindly.
 
 ## Start of a task
@@ -217,6 +218,8 @@ with bpy.context.temp_override(area=area, region=region):
 ```
 
 ## Framing the viewport before a screenshot
+
+On BlenderLab, `jump_to_view3d_object_by_name` does this for one object. With code:
 
 ```python
 area = next(a for a in bpy.context.screen.areas if a.type == 'VIEW_3D')

@@ -1,24 +1,49 @@
 ---
 name: blender-materials-render
-description: Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through the Blender connection. Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.
+description: Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official Blender Lab server or MCP for Blender). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.
 metadata:
   author: HydraOps
-  version: 1.0.0
-  tools: [blender]
+  version: 1.1.0
+  tools: [blenderlab, blender]
 ---
 
 # Materials, lighting and rendering in Blender
 
-You work in the user's Blender through the **Blender connection** (`blender_…` tools).
-The viewport screenshot and the final render are different things: the screenshot shows
+You work in the user's Blender through a **Blender connection**.
+The viewport capture and the final render are different things: the capture shows
 whatever shading mode the viewport is in, the render uses the render engine, the lights
 and the world. Most "it looked fine but the render is wrong" problems come from that.
 
-If the `blender_…` tools are missing, say so and stop (Tools → Connections → Blender).
+## Which Blender connection you have
+
+HydraOps offers two Blender connections. Your tool names tell you which one you were
+given; use the names of that column and never call a tool of the other.
+
+| What you need | **BlenderLab**, the official Blender Lab server: tools `blenderlab_…` | **Blender**, MCP for Blender: tools `blender_…` |
+|---|---|---|
+| What is in the scene | `get_objects_summary` | `get_scene_info` |
+| One object in detail | `get_object_detail_summary` (by `name`) | `get_object_info` |
+| The file: saved or not, its path | `get_blendfile_summary_path_info` | code: `bpy.data.filepath` |
+| Run Python | `execute_blender_code` | `execute_blender_code` |
+| See the 3D viewport | `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"` (whole window: `get_screenshot_of_window_as_image`) | `get_viewport_screenshot` |
+| Point the viewport at an object | `jump_to_view3d_object_by_name` | code |
+| Check the Python API | `get_python_api_docs` (an identifier such as `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs` | `bpy_api_lookup`, `describe_node_type` |
+| Quick render | `render_thumbnail_to_path`, `render_viewport_to_path`: the image goes to Blender's temp folder and the result gives the real path | code |
+| Export | code | `export_scene`, or code |
+| Asset libraries, 3D generators | none | Poly Haven, Sketchfab, Poly Pizza; Hyper3D, Hunyuan3D, Tripo |
+
+On both, do not count on anything surviving between `execute_blender_code` calls (carry
+your helpers in each script), and what the script prints comes back. On BlenderLab you
+can also assign a dict to `result` for structured data, and its guard refuses a few
+operators (quitting Blender, factory resets).
+
+If neither set of tools is available, stop and say so: the user has to install a Blender
+connection (Tools → Connections), give it to this agent, and have Blender open with that
+connection's add-on running. Do not describe work as done when you could not do it.
 
 ## Order of work
 
-1. **Look**: `get_scene_info`; which objects, which already have materials, is there a
+1. **Look**: the scene tool; which objects, which already have materials, is there a
    camera, a light, a world? Read `bpy.app.version_string` and the current render engine.
 2. **Materials**, one per distinct surface, named for what they are (`Oak_Wood`,
    `Brushed_Steel`), reused across objects.
@@ -40,7 +65,7 @@ Open it before writing the first script.
 - **Input names changed in Blender 4.0.** `Transmission` became `Transmission Weight`,
   `Emission` became `Emission Color`, `Specular` became `Specular IOR Level`, `Clearcoat`
   became `Coat Weight`, `Subsurface` became `Subsurface Weight`. Look an input up by name
-  and check it exists before setting it; use `describe_node_type` when unsure.
+  and check it exists before setting it; use the API tool of your connection when unsure.
 - **Material made but never assigned.** Append it to `obj.data.materials`; for different
   materials on parts of one mesh, assign `polygon.material_index`.
 - **Find the node by type, not by name.** The node is called "Principled BSDF" only in
@@ -68,8 +93,9 @@ Metallic is 0 or 1, almost never in between. Pure black (0, 0, 0) and pure white
 - Area light power is in watts and needs to be large: a 1 m area light 2 m from a small
   object wants roughly 100-500 W. A sun's strength is different: 2-5.
 - A ground plane under the object gives contact shadows; without it the object floats.
-- An HDRI from Poly Haven gives realistic light and reflections in one step, but it is a
-  download (third-party content, and an approval in HydraOps): ask first.
+- An HDRI gives realistic light and reflections in one step. The Blender (MCP for
+  Blender) connection can download one from Poly Haven: it is third-party content and
+  an approval in HydraOps, so ask first. On BlenderLab, ask the user for an HDRI file.
 
 ## Engines
 
@@ -96,10 +122,12 @@ Do not change the user's render device or preferences.
 
 - Render **to a file** with an absolute path in a folder the user can find (next to the
   .blend if it is saved, otherwise ask or use the user's temp folder) and report the
-  full path. Never overwrite an existing file without saying so.
+  full path. Never overwrite an existing file without saying so. Do it with code (the
+  reference has it): BlenderLab's own render tools are for quick checks and write into
+  Blender's temp folder whatever path you give them; report the path their result names.
 - Test small first. A full-resolution Cycles render can take minutes and blocks Blender
   while it runs; tell the user before starting a long one.
-- Look at the result before declaring success: `get_viewport_screenshot` does not show
+- Look at the result before declaring success: a viewport capture does not show
   a render. If you cannot view the rendered file yourself, say that plainly and describe
   what you set up rather than what the image "looks like".
 - Color management: the default view transform (AgX or Filmic) desaturates strong colors
