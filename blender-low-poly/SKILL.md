@@ -3,7 +3,7 @@ name: blender-low-poly
 description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.1.0
+  version: 1.2.0
   tools: [blenderlab, blender]
 ---
 
@@ -61,9 +61,11 @@ connection's add-on running. Do not describe work as done when you could not do 
 6. **Chunky, exaggerated proportions.** Thicker walls, beams and trunks than real life;
    oversized roofs, doors and windows; tapered shapes (wider at the base, or at the top
    for a cartoon feel). Thin parts disappear at this level of detail.
-7. **Imperfection by hand.** Nothing perfectly aligned: tilt a chimney 2-4°, make roof
-   tiles uneven, move vertices of rocks and terrain randomly. With a fixed random seed,
-   so a re-run gives the same result.
+7. **Imperfection by hand, in small doses.** Nothing perfectly aligned: tilt a chimney
+   2-4°, vary roof tiles by a few percent of their size and 2-3° of tilt, move vertices of
+   rocks and terrain randomly. The structure must still read: rows of tiles stay rows, no
+   piece turned sideways or lifted off the surface. With a fixed random seed, so a re-run
+   gives the same result.
 8. **Detail through separate small pieces, not through subdividing.** A window is a frame
    of four boxes plus a pane; roof tiles are rows of small slabs; stones are a few
    irregular blocks set into the wall. Each piece is simple; the arrangement gives the
@@ -75,8 +77,11 @@ connection's add-on running. Do not describe work as done when you could not do 
 ## Workflow
 
 1. **Read the reference, if there is one**: list the parts, count what repeats (rows of
-   tiles, number of beams, windows per wall), note the proportions between parts (roof
-   height against wall height), and name the palette colors. Build from that list.
+   tiles, number of beams, windows per wall), note the proportions between parts as
+   ratios (roof height against wall height, width against height), and name the palette
+   colors. Build from that list. The image decides: anchor one size and derive the rest
+   from the ratios, do not invent sizes in meters that the picture contradicts, and do
+   not add what it does not show (a base, props) unless asked.
 2. **Blockout** the big masses first with boxes and wedges at the right proportions.
    Take a screenshot and compare the silhouette: if the silhouette is wrong, details
    will not save it.
@@ -86,9 +91,14 @@ connection's add-on running. Do not describe work as done when you could not do 
    **small detail** (tiles, stones, planks, cracks), then **surroundings** (ground slab,
    a few rocks, grass tufts).
 5. **Roughen**: the random offsets and tilts of rule 7.
-6. **Light and frame** (below), screenshot, compare with the reference part by part, fix.
+6. **Light and frame** (below), then put the view at the angle of the reference, capture
+   it and compare part by part: silhouette, proportions, where each part sits, colors. Fix.
 
 Expect two or three rounds of correction against the reference. Say what still differs.
+
+You have a limited number of tool rounds per task (see "Your step budget" in
+`blender-modeling`): build two or three related parts per call, capture at the
+milestones (blockout, details, final) and put the most visible parts first.
 
 Code for every recipe is in [references/low-poly-recipes.md](references/low-poly-recipes.md):
 palette, flat shading, tapered boxes, gable roofs, rows of tiles, windows and doors,
@@ -153,8 +163,11 @@ origin at the bottom center. Follow `blender-game-export` for the rest.
 ## Before you say it is done
 
 - Flat shaded, no Bevel or Subdivision modifiers, no high-segment cylinders or spheres.
-- A palette of plain materials, each assigned; view transform `Standard`.
+- A palette of plain materials, each assigned; view transform `Standard`. No object left
+  without a material (it shows up plain white): run the check in the recipes file.
 - Silhouette and proportions match the request or the reference; parts slightly
-  irregular, nothing floating.
-- Screenshot taken under the sun-and-sky light; triangle count reported against the
-  budget; what differs from the reference said plainly.
+  irregular, nothing floating or turned sideways.
+- Screenshot taken under the sun-and-sky light, from the angle of the reference when
+  there is one; triangle count reported against the budget.
+- What differs from the reference said plainly. Do not call the model finished or
+  polished while a difference is visible: name it.

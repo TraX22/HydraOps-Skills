@@ -239,3 +239,27 @@ for o in col.objects:
         print(o.name, "verts", len(o.data.vertices), "dims",
               [round(d, 3) for d in o.dimensions], "scale", [round(s, 3) for s in o.scale])
 ```
+
+Before reporting: the meshes of the model that have no material (they show up plain
+white), and the ones that float above everything else of the model.
+
+```python
+import bpy
+from mathutils import Vector
+
+# col is the model's collection: col = get_collection("<name>") as above
+meshes = [o for o in col.all_objects if o.type == 'MESH']
+no_material = [o.name for o in meshes
+               if not o.material_slots or any(s.material is None for s in o.material_slots)]
+
+def z_range(o):
+    zs = [(o.matrix_world @ Vector(c)).z for c in o.bound_box]
+    return min(zs), max(zs)
+
+ranges = {o.name: z_range(o) for o in meshes}
+floating = [name for name, (lo, hi) in ranges.items()
+            if lo > 0.02 and not any(other != name and olo - 0.02 <= lo <= ohi + 0.02
+                                     for other, (olo, ohi) in ranges.items())]
+print("without material:", no_material)
+print("not resting on anything (by height):", floating)
+```

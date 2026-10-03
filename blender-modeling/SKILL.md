@@ -3,7 +3,7 @@ name: blender-modeling
 description: Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
 metadata:
   author: HydraOps
-  version: 1.1.0
+  version: 1.2.0
   tools: [blenderlab, blender]
 ---
 
@@ -50,16 +50,34 @@ models end up wrong without anyone noticing.
 2. **Plan in parts.** Break the model into named parts with sizes in meters and a
    position each ("seat 0.45 × 0.45 × 0.04 at z = 0.45"). State the plan in one short
    list before building anything larger than a couple of objects.
-3. **Build one part per call.** One `execute_blender_code` call per part or per coherent
-   change, 10-40 lines. Small calls fail small: a traceback in a 200-line script tells
-   you little and leaves the scene half-changed.
-4. **Verify.** After each meaningful step capture the 3D viewport and actually compare it
-   with the plan: proportions, parts touching where they should, nothing floating,
-   nothing inside something else. Fix before moving on. If the capture comes back marked
-   as not visible to you, your model cannot see images: verify with numbers instead
-   (dimensions, positions, counts), and say that you could not look.
+3. **Build in stages.** Two or three related parts per `execute_blender_code` call
+   (walls, plinth and roof; door and windows), 30-90 lines. A single part per call when
+   it is tricky (a boolean, a curved surface) or right after a failure: a traceback in a
+   200-line script tells you little and leaves the scene half-changed.
+4. **Verify at the milestones.** Capture the 3D viewport once the main volumes stand,
+   once the details are in, and at the end, and actually compare it with the plan:
+   proportions, parts touching where they should, nothing floating, nothing inside
+   something else. Between captures, check with the numbers your code printed. Fix before
+   moving on. If the capture comes back marked as not visible to you, your model cannot
+   see images: verify with numbers instead (dimensions, positions, counts), and say that
+   you could not look.
 5. **Report.** Say what you built, the object names, the dimensions, and anything that
    differs from what was asked.
+
+### Your step budget
+
+A task gives you a limited number of tool rounds (15 unless the user raised it), and
+every call spends one: opening a skill, a scene summary, a build call, a capture.
+
+- Open the skills you need once, together, and their reference files only if you will
+  use them. Do not reopen one you already opened in this conversation.
+- Plan the stages against the budget before the first build call: about 1 round to look,
+  8-9 to build, 3 captures, 1 spare for a fix. Order them so the most visible parts come
+  first.
+- When a capture and a summary do not depend on each other, ask for both in one round.
+- If the request does not fit, say so in the plan, finish a coherent part of it well and
+  end with the exact list of what is left, so the user only has to say "continue". Never
+  stop in the middle of a part.
 
 ## Rules that prevent most failures
 
@@ -108,10 +126,22 @@ report; apply them only for export or when a later step needs the real geometry.
 
 - Describe what you see first: the parts, their proportions relative to each other, and
   the count of anything repeated. Build from that list.
-- Pick one measurement to anchor the scale (the user's, or a sensible real-world size)
-  and derive the rest from proportions.
-- After the blockout, take a screenshot from a similar angle and compare part by part.
-  Expect two or three correction rounds; that is normal, not a failure.
+- **The image decides, not numbers made up for it.** Read the proportions as ratios
+  (width to height to depth; how much of the total height is roof; how wide a door is
+  against its wall), pick one measurement to anchor the scale (the user's, or a sensible
+  real-world size) and derive every other size from the ratios. If the text of the
+  request gives sizes that contradict the image, follow the image and say so.
+- When you are asked to write a prompt or a brief from a reference, describe shapes,
+  ratios, colors and counts. Do not invent sizes in meters: whoever builds from the brief
+  will follow them instead of the picture.
+- Build what the reference shows. No base, props or decoration it does not have, unless
+  the user asked.
+- After the blockout, and again before you report, put the view at the angle of the
+  reference, capture it and compare part by part: silhouette, proportions, where each
+  part sits, colors. Fix what differs; what you cannot fix, list in the report. Expect
+  two or three correction rounds; that is normal, not a failure.
+- A reference attached to an earlier message may no longer be visible to you. If you
+  cannot see it, say so and ask for it again instead of working from memory.
 
 ## Approvals in HydraOps
 
@@ -133,7 +163,12 @@ your report.
 
 ## Before you say it is done
 
-- Screenshot taken after the last change, and it matches the request.
+- Screenshot taken after the last change, and it matches the request. With a reference:
+  taken from its angle and compared part by part.
+- Every object has its material: run the check in the reference file and fix any object
+  it lists (an object without one shows up plain white).
+- The report says what still differs. Do not call a model finished or polished while a
+  difference is visible: name it.
 - Objects named, in their collection, at real scale, standing on z = 0 unless asked
   otherwise.
 - Nothing of the user's was deleted or moved.

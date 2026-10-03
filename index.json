@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-02T13:28:49.625Z",
+  "generatedAt": "2026-10-03T14:54:25.978Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -28,7 +28,7 @@
       "name": "blender-low-poly",
       "description": "Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
       "author": "HydraOps",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "tools": [
         "blenderlab",
         "blender"
@@ -36,13 +36,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "c0cf22d4d6f173f0a698a4aebca84515e162eda4932460cf03705cffaa27285d",
-          "size": 9340
+          "sha256": "3f0702b2d67ecc26fa964692fd5addbad3ad37d50d8995c61c35832a8771c881",
+          "size": 10331
         },
         {
           "path": "references/low-poly-recipes.md",
-          "sha256": "ae9671bb03b681e3e37e5e73c5f35fa7363f74fce56c89f260e41e3587179bbe",
-          "size": 13670
+          "sha256": "292a5daa14bf2ec8c046c6298098ccfc1b3cbbfb3a395eb16c72d3742dddc7d3",
+          "size": 14635
         }
       ]
     },
@@ -72,7 +72,7 @@
       "name": "blender-modeling",
       "description": "Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
       "author": "HydraOps",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "tools": [
         "blenderlab",
         "blender"
@@ -80,13 +80,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "bf8798e3a7bfae09fcb05af1a5bcdde4796baa2d30c811908018d946df99c31d",
-          "size": 8635
+          "sha256": "aee3b3bd28ba1c899c6b2f5b8cbee141d20bfc12f31697ff370d19385a059fe3",
+          "size": 10976
         },
         {
           "path": "references/bpy-patterns.md",
-          "sha256": "80129ca0fde9d72e31aa3e7572f436d8de7493e752ff8846eeb3ed9a84a234dc",
-          "size": 6986
+          "sha256": "c084d4b94b1bc03ac84dd0ecee8e36a70fce05523895e4eee7c272d7255674ec",
+          "size": 7927
         }
       ]
     },

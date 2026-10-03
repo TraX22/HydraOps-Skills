@@ -316,6 +316,32 @@ print("objects:", len(col.all_objects), "| triangles:", tris, "| materials:", le
 print("problems:", problems or "none")
 ```
 
+## Check before reporting
+
+Objects without a material show up plain white, and a piece lifted off the model reads
+as a mistake. List both and fix them before the final capture.
+
+```python
+import bpy
+from mathutils import Vector
+
+col = bpy.data.collections["LP_House"]         # the model's collection
+meshes = [o for o in col.all_objects if o.type == 'MESH']
+no_material = [o.name for o in meshes
+               if not o.material_slots or any(s.material is None for s in o.material_slots)]
+
+def z_range(o):
+    zs = [(o.matrix_world @ Vector(c)).z for c in o.bound_box]
+    return min(zs), max(zs)
+
+ranges = {o.name: z_range(o) for o in meshes}
+floating = [name for name, (lo, hi) in ranges.items()
+            if lo > 0.02 and not any(other != name and olo - 0.02 <= lo <= ohi + 0.02
+                                     for other, (olo, ohi) in ranges.items())]
+print("without material:", no_material)
+print("not resting on anything (by height):", floating)
+```
+
 ## Join the pieces (when the model is approved)
 
 ```python
