@@ -3,7 +3,7 @@ name: blender-modeling
 description: Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
 metadata:
   author: HydraOps
-  version: 1.2.0
+  version: 1.3.0
   tools: [blenderlab, blender]
 ---
 
@@ -140,6 +140,15 @@ report; apply them only for export or when a later step needs the real geometry.
   reference, capture it and compare part by part: silhouette, proportions, where each
   part sits, colors. Fix what differs; what you cannot fix, list in the report. Expect
   two or three correction rounds; that is normal, not a failure.
+- **Measure the framing, the light and the colors; do not judge them by eye.** A model
+  that looks at its own render tends to find it fine, and a correction made by eye
+  overshoots (too close becomes too far, burnt becomes dark). Open
+  [references/match-reference.md](references/match-reference.md) and, in ONE call: place
+  the camera with `frame_model` (you choose how much of the frame the subject fills, the
+  code does it), make a quick render, and compare its brightness, saturation and dominant
+  colors with the reference image. Fix what the numbers show, one thing per round, two
+  rounds at most. Report the numbers; never write a coverage or a brightness you did not
+  measure.
 - A reference attached to an earlier message may no longer be visible to you. If you
   cannot see it, say so and ask for it again instead of working from memory.
 
@@ -164,7 +173,8 @@ your report.
 ## Before you say it is done
 
 - Screenshot taken after the last change, and it matches the request. With a reference:
-  taken from its angle and compared part by part.
+  taken from its angle and compared part by part, with the framing, brightness and colors
+  measured (references/match-reference.md) and the numbers in the report.
 - Every object has its material: run the check in the reference file and fix any object
   it lists (an object without one shows up plain white).
 - The report says what still differs. Do not call a model finished or polished while a

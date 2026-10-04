@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-03T14:54:25.978Z",
+  "generatedAt": "2026-10-04T13:36:02.438Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -28,7 +28,7 @@
       "name": "blender-low-poly",
       "description": "Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
       "author": "HydraOps",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "tools": [
         "blenderlab",
         "blender"
@@ -36,8 +36,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "3f0702b2d67ecc26fa964692fd5addbad3ad37d50d8995c61c35832a8771c881",
-          "size": 10331
+          "sha256": "e4c26527fcb0a19e309b8c40f731775fdfa8594f39b08b5f0ab83ee9c117c9c5",
+          "size": 11110
         },
         {
           "path": "references/low-poly-recipes.md",
@@ -72,7 +72,7 @@
       "name": "blender-modeling",
       "description": "Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
       "author": "HydraOps",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "tools": [
         "blenderlab",
         "blender"
@@ -80,13 +80,18 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "aee3b3bd28ba1c899c6b2f5b8cbee141d20bfc12f31697ff370d19385a059fe3",
-          "size": 10976
+          "sha256": "2d642115375eff939e3bb8c5ac47f1d55e8ff161f6f098dc8bdd0980310979a6",
+          "size": 11782
         },
         {
           "path": "references/bpy-patterns.md",
           "sha256": "c084d4b94b1bc03ac84dd0ecee8e36a70fce05523895e4eee7c272d7255674ec",
           "size": 7927
+        },
+        {
+          "path": "references/match-reference.md",
+          "sha256": "a7d51ca1156512a5917615b5a304fed4310a90a1e5125c63a494e44f9eb87579",
+          "size": 9071
         }
       ]
     },

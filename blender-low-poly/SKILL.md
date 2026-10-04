@@ -3,7 +3,7 @@ name: blender-low-poly
 description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.2.0
+  version: 1.3.0
   tools: [blenderlab, blender]
 ---
 
@@ -93,6 +93,12 @@ connection's add-on running. Do not describe work as done when you could not do 
 5. **Roughen**: the random offsets and tilts of rule 7.
 6. **Light and frame** (below), then put the view at the angle of the reference, capture
    it and compare part by part: silhouette, proportions, where each part sits, colors. Fix.
+7. **Measure the result against the reference** instead of judging it by eye: open the
+   file `references/match-reference.md` of the `blender-modeling` skill
+   (`skills_view` with name `blender-modeling` and that file) and, in one call, frame the
+   model with `frame_model`, make a quick render and compare its brightness, saturation
+   and dominant colors with the reference image. Correct what the numbers show, one thing
+   per round, two rounds at most, and put the numbers in the report.
 
 Expect two or three rounds of correction against the reference. Say what still differs.
 
@@ -148,7 +154,9 @@ brightness.
   transform greys them).
 - Camera: three-quarter view from above (30-35° down), long lens (50-85 mm) or
   orthographic for a diorama.
-- A plain background in a palette color, or a ground slab that ends in a clean edge.
+- A plain background in a palette color, or a ground slab that ends in a clean edge. A
+  backdrop plane has to be far larger than the model (20 times or more), or the world the
+  same color: no edge or horizon may show in the frame.
 - EEVEE is enough and fast. Soft shadows and ambient occlusion help a lot.
 
 Materials, rendering to a file and troubleshooting are in `blender-materials-render`.
@@ -169,5 +177,7 @@ origin at the bottom center. Follow `blender-game-export` for the rest.
   irregular, nothing floating or turned sideways.
 - Screenshot taken under the sun-and-sky light, from the angle of the reference when
   there is one; triangle count reported against the budget.
+- With a reference: framing, brightness, saturation and dominant colors measured against
+  it (step 7), and the numbers in the report.
 - What differs from the reference said plainly. Do not call the model finished or
   polished while a difference is visible: name it.
