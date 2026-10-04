@@ -11,23 +11,27 @@ paste the helpers you need into the call that uses them.
 ## The helpers
 
 ```python
-import bpy, os, glob, time
+import bpy, os
 import numpy as np
 from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 
-def find_reference(max_age_hours=6):
-    """The newest image attached in HydraOps, when Blender runs on the same computer.
-    Returns its path, or None (then work with the target ranges below)."""
+def find_reference(file_name):
+    """The path of an image attached in THIS conversation, given its stored file name (the last
+    part of a line like "storage/uploads/1791118524833-house.png"). Works when Blender runs on
+    the same computer as HydraOps. Returns None when the name is not an image or is not there.
+    Only the name is used: it cannot be made to open a file somewhere else."""
+    name = os.path.basename(str(file_name or "").replace("\\", "/"))
+    if not name or os.path.splitext(name)[1].lower() not in (".png", ".jpg", ".jpeg", ".webp"):
+        return None
     roots = [os.path.join(os.environ.get("APPDATA", ""), "HydraOps", "data"),
              os.path.expanduser("~/Library/Application Support/HydraOps/data"),
              os.path.expanduser("~/.config/HydraOps/data")]
-    files = []
     for root in roots:
-        for ext in ("png", "jpg", "jpeg", "webp"):
-            files += glob.glob(os.path.join(root, "storage", "uploads", "*." + ext))
-    files = [f for f in files if time.time() - os.path.getmtime(f) < max_age_hours * 3600]
-    return max(files, key=os.path.getmtime) if files else None
+        path = os.path.join(root, "storage", "uploads", name)
+        if os.path.isfile(path):
+            return path
+    return None
 
 def image_stats(path, size=96):
     """Brightness, saturation, burnt and black areas, and the dominant colors of an image file."""
@@ -137,7 +141,8 @@ print("coverage after framing:", result)        # width / height / center, measu
 ## 2. Brightness and color
 
 ```python
-ref_path = find_reference()
+# The stored name of the reference, exactly as this conversation shows it; "" when you do not have it.
+ref_path = find_reference("1791118524833-house.png")
 render_path = quick_render()
 mine = image_stats(render_path)
 print("render   :", mine)
@@ -158,12 +163,13 @@ Read the result like this:
 | The dominant colors do not resemble the reference's | Compare the two lists of colors and correct the materials (or the world color) that are off; a color tint over everything comes from the world or the sun color |
 | `black_pct` over 10 | Add world light: the shadows are black |
 
-`find_reference()` returns the most recent image uploaded to HydraOps on this computer. It is the
-reference when the user attached one in this conversation; if nothing was attached lately it
-can be another image, so check the printed file name and size against what you were shown
-before trusting the comparison.
+**Which file is the reference.** Use only a file name that this conversation gave you: a
+line such as `storage/uploads/1791118524833-house.png` next to a message, or a path the user
+wrote. Never look through the uploads folder for "the latest image" or list its files:
+other conversations keep their attachments there too, and those are not yours to open.
+If you have no name, do not guess one: ask the user for the image's path, or go on without it.
 
-Without a reference file (`find_reference()` gave None), aim at: brightness 0.35-0.65,
+Without a reference file (`find_reference(...)` gave None), aim at: brightness 0.35-0.65,
 burnt under 3 %, black under 5 %, and compare the dominant colors with the ones you see
 in the reference.
 

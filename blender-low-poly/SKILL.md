@@ -3,7 +3,7 @@ name: blender-low-poly
 description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.3.0
+  version: 1.3.1
   tools: [blenderlab, blender]
 ---
 
