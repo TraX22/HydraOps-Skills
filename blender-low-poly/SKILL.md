@@ -3,7 +3,7 @@ name: blender-low-poly
 description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.3.1
+  version: 1.3.2
   tools: [blenderlab, blender]
 ---
 
@@ -93,12 +93,11 @@ connection's add-on running. Do not describe work as done when you could not do 
 5. **Roughen**: the random offsets and tilts of rule 7.
 6. **Light and frame** (below), then put the view at the angle of the reference, capture
    it and compare part by part: silhouette, proportions, where each part sits, colors. Fix.
-7. **Measure the result against the reference** instead of judging it by eye: open the
-   file `references/match-reference.md` of the `blender-modeling` skill
-   (`skills_view` with name `blender-modeling` and that file) and, in one call, frame the
-   model with `frame_model`, make a quick render and compare its brightness, saturation
-   and dominant colors with the reference image. Correct what the numbers show, one thing
-   per round, two rounds at most, and put the numbers in the report.
+7. **Finish with `final_check`**, the last call of the task: the function is in the
+   `blender-modeling` skill ("The final check"). You do not see your renders; it measures
+   the render for you (the model apart from the background, against the reference image
+   when you have its file name) and prints a `PROBLEM:` line for what is wrong. Fix, run
+   it again (two rounds at most) and put its output in the report.
 
 Expect two or three rounds of correction against the reference. Say what still differs.
 
@@ -148,7 +147,8 @@ brightness.
 
 - One **sun** at an angle (about 45° up, 30-45° to the side), strength 3-4, with soft
   shadows; plus a **world** of a light sky color at strength 0.6-1.0 so shadows are not
-  black. No three-point studio setup.
+  black. No three-point studio setup. Do not push the light up to get a white background,
+  and do not tint the world to color it: the backdrop's own material gives the color.
 - A slightly warm sun against a slightly cool world gives the classic look.
 - Set the view transform to `Standard` so palette colors stay as chosen (the default
   transform greys them).
@@ -177,7 +177,7 @@ origin at the bottom center. Follow `blender-game-export` for the rest.
   irregular, nothing floating or turned sideways.
 - Screenshot taken under the sun-and-sky light, from the angle of the reference when
   there is one; triangle count reported against the budget.
-- With a reference: framing, brightness, saturation and dominant colors measured against
-  it (step 7), and the numbers in the report.
+- `final_check` was the last call, its output is in the report, and no `PROBLEM:` line is
+  left unnamed (step 7).
 - What differs from the reference said plainly. Do not call the model finished or
   polished while a difference is visible: name it.

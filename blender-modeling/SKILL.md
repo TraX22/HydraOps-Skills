@@ -3,7 +3,7 @@ name: blender-modeling
 description: Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
 metadata:
   author: HydraOps
-  version: 1.3.1
+  version: 1.3.2
   tools: [blenderlab, blender]
 ---
 
@@ -140,17 +140,223 @@ report; apply them only for export or when a later step needs the real geometry.
   reference, capture it and compare part by part: silhouette, proportions, where each
   part sits, colors. Fix what differs; what you cannot fix, list in the report. Expect
   two or three correction rounds; that is normal, not a failure.
-- **Measure the framing, the light and the colors; do not judge them by eye.** A model
-  that looks at its own render tends to find it fine, and a correction made by eye
-  overshoots (too close becomes too far, burnt becomes dark). Open
-  [references/match-reference.md](references/match-reference.md) and, in ONE call: place
-  the camera with `frame_model` (you choose how much of the frame the subject fills, the
-  code does it), make a quick render, and compare its brightness, saturation and dominant
-  colors with the reference image. Fix what the numbers show, one thing per round, two
-  rounds at most. Report the numbers; never write a coverage or a brightness you did not
-  measure.
+- **The framing, the light and the colors are measured, not judged by eye**: see "The
+  final check" below. It compares your render with the reference file when you give it the
+  file's name.
 - A reference attached to an earlier message may no longer be visible to you. If you
   cannot see it, say so and ask for it again instead of working from memory.
+
+## The final check (always your last call)
+
+You do not see your renders: the render tools write a file and give you its path, and a
+viewport capture does not show the scene's light. A model that reports from what it
+intended, not from what came out, delivers white or black images without knowing. So the
+**last `execute_blender_code` call of every task that builds or changes a model** is
+`final_check`, and its printed output goes into your report as it is.
+
+It makes a small render from the scene's camera, splits it into background (the colors of
+the four corners) and model (the rest), and prints: how much of the frame the model fills,
+its brightness, saturation and main colors, the objects without a material, and one
+`PROBLEM:` line for each thing that is wrong. With the file name of the reference it
+measures that image the same way and compares framing, brightness and color.
+
+```python
+import bpy, os
+import numpy as np
+from mathutils import Vector
+from bpy_extras.object_utils import world_to_camera_view
+
+BACKDROP_WORDS = ("ground", "backdrop", "floor", "sky", "shadow")
+
+def subject_stats(path, size=128):
+    """An image split into background (the colors of its four corners) and subject (the rest):
+    how much of the image the subject takes, its box, its brightness, saturation and colors."""
+    img = bpy.data.images.load(path, check_existing=False)
+    w, h = img.size
+    sw, sh = (size, max(8, round(size * h / w))) if w >= h else (max(8, round(size * w / h)), size)
+    img.scale(sw, sh)
+    px = np.empty(len(img.pixels), dtype=np.float32)
+    img.pixels.foreach_get(px)
+    bpy.data.images.remove(img)
+    rgb = px.reshape(sh, sw, 4)[:, :, :3]                       # row 0 is the bottom of the image
+    cy, cx = max(2, sh // 8), max(2, sw // 8)
+    corners = np.concatenate([rgb[:cy, :cx].reshape(-1, 3), rgb[:cy, -cx:].reshape(-1, 3),
+                              rgb[-cy:, :cx].reshape(-1, 3), rgb[-cy:, -cx:].reshape(-1, 3)])
+    # Background = close to one of the corner colors (a gradient or a soft shadow still counts).
+    q = np.unique(np.round(corners * 8).astype(int), axis=0)
+    flat = rgb.reshape(-1, 3)
+    dist = np.min(np.abs(flat[:, None, :] * 8 - q[None, :, :]).max(axis=2), axis=1)
+    subject = (dist > 1.0).reshape(sh, sw)
+    share = float(subject.mean())
+    whole = flat @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    out = {"size": (w, h), "image_brightness": round(float(whole.mean()), 3), "subject_pct": round(100 * share, 1)}
+    if share < 0.005:
+        return out
+    ys, xs = np.nonzero(subject)
+    out["box"] = {"width": round(float(xs.max() - xs.min() + 1) / sw, 2), "height": round(float(ys.max() - ys.min() + 1) / sh, 2),
+                  "center": (round(float(xs.max() + xs.min() + 1) / 2 / sw, 2), round(float(ys.max() + ys.min() + 1) / 2 / sh, 2))}
+    sub = rgb[subject]
+    lum = sub @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    mx, mn = sub.max(axis=1), sub.min(axis=1)
+    out["brightness"] = round(float(lum.mean()), 3)
+    out["saturation"] = round(float(np.where(mx > 1e-4, (mx - mn) / np.maximum(mx, 1e-4), 0.0).mean()), 3)
+    out["burnt_pct"] = round(100 * float((lum > 0.97).mean()), 1)
+    keys = (np.clip((sub * 5.999).astype(int), 0, 5) * np.array([36, 6, 1])).sum(axis=1)
+    counts = np.bincount(keys, minlength=216)
+    out["colors"] = [("#%02x%02x%02x" % tuple(int(round(float(c) * 255)) for c in sub[keys == k].mean(axis=0)),
+                      int(round(100 * counts[k] / len(keys)))) for k in counts.argsort()[::-1][:5] if counts[k]]
+    return out
+
+def find_reference(file_name):
+    """The path of an image attached in THIS conversation, by its stored file name (the last part
+    of a line like "storage/uploads/1791118524833-house.png"). None when it is not there."""
+    name = os.path.basename(str(file_name or "").replace("\\", "/"))
+    if not name or os.path.splitext(name)[1].lower() not in (".png", ".jpg", ".jpeg", ".webp"):
+        return None
+    for root in (os.path.join(os.environ.get("APPDATA", ""), "HydraOps", "data"),
+                 os.path.expanduser("~/Library/Application Support/HydraOps/data"),
+                 os.path.expanduser("~/.config/HydraOps/data")):
+        path = os.path.join(root, "storage", "uploads", name)
+        if os.path.isfile(path):
+            return path
+    return None
+
+def _model_points(scene, cam, col):
+    """Where the model's vertices fall in the frame (the backdrop is left out by its name)."""
+    bpy.context.view_layer.update()
+    pts = []
+    for o in col.all_objects:
+        if o.type != 'MESH' or any(wd in o.name.lower() for wd in BACKDROP_WORDS):
+            continue
+        vs = o.data.vertices
+        step = max(1, len(vs) // 400)
+        pts += [world_to_camera_view(scene, cam, o.matrix_world @ vs[i].co) for i in range(0, len(vs), step)]
+    return pts
+
+def frame_camera(collection_name, fill=0.8):
+    """Moves the camera along its own view direction (or changes its orthographic scale) until the
+    model fills `fill` of the frame in its larger direction, centered. The angle is not changed."""
+    scene, cam = bpy.context.scene, bpy.context.scene.camera
+    col = bpy.data.collections[collection_name]
+    bpy.context.view_layer.update()                              # the camera's matrix must be current
+    forward = cam.matrix_world.to_quaternion() @ Vector((0.0, 0.0, -1.0))
+    for _ in range(24):
+        pts = _model_points(scene, cam, col)
+        xs, ys = [p.x for p in pts], [p.y for p in pts]
+        size = max(max(xs) - min(xs), max(ys) - min(ys))
+        r = scene.render
+        longer = max(r.resolution_x, r.resolution_y)
+        cam.data.shift_x += ((max(xs) + min(xs)) / 2 - 0.5) * r.resolution_x / longer
+        cam.data.shift_y += ((max(ys) + min(ys)) / 2 - 0.5) * r.resolution_y / longer
+        if abs(size - fill) < 0.01:
+            break
+        if cam.data.type == 'ORTHO':
+            cam.data.ortho_scale *= size / fill
+        else:
+            depth = sum(p.z for p in pts) / len(pts)             # distance to the model along the view
+            cam.location = cam.location - forward * depth * (size / fill - 1.0)
+    pts = _model_points(scene, cam, col)
+    xs, ys = [p.x for p in pts], [p.y for p in pts]
+    print("framed: width %.2f, height %.2f, center (%.2f, %.2f)" % (max(xs) - min(xs), max(ys) - min(ys), (max(xs) + min(xs)) / 2, (max(ys) + min(ys)) / 2))
+
+def final_check(collection_name, reference_name=""):
+    """Run this as the LAST call of the task and put what it prints in the report.
+    It renders the camera view small, measures it, and names what is wrong."""
+    scene, cam = bpy.context.scene, bpy.context.scene.camera
+    col = bpy.data.collections.get(collection_name)
+    problems = []
+    if col is None or cam is None:
+        print("PROBLEM: no collection named %r, or the scene has no camera." % collection_name)
+        return
+    meshes = [o for o in col.all_objects if o.type == 'MESH']
+    no_mat = [o.name for o in meshes if not o.material_slots or any(s.material is None for s in o.material_slots)]
+    if no_mat:
+        problems.append("objects without a material (they render white): %s" % ", ".join(no_mat[:8]))
+    # How much of the frame the model fills, from its real shape (its vertices), not its box.
+    pts = _model_points(scene, cam, col)
+    expected = 0.0
+    if pts:
+        xs, ys = [p.x for p in pts], [p.y for p in pts]
+        expected = max(0.0, min(1.0, max(xs)) - max(0.0, min(xs))) * max(0.0, min(1.0, max(ys)) - max(0.0, min(ys)))
+        cov = {"width": round(max(xs) - min(xs), 2), "height": round(max(ys) - min(ys), 2),
+               "center": (round((max(xs) + min(xs)) / 2, 2), round((max(ys) + min(ys)) / 2, 2))}
+        print("model in the frame (from the scene):", cov)
+        if min(xs) < 0 or max(xs) > 1 or min(ys) < 0 or max(ys) > 1:
+            problems.append("part of the model is outside the frame. Run frame_camera(%r, fill=0.8)." % collection_name)
+    # A small render of what the camera sees, measured.
+    r = scene.render
+    keep = (r.resolution_x, r.resolution_y, r.resolution_percentage, r.filepath)
+    path = os.path.join(bpy.app.tempdir, "final_check.png")
+    r.resolution_x, r.resolution_y = (320, max(1, round(320 * keep[1] / keep[0])))
+    r.resolution_percentage, r.filepath = 100, path
+    bpy.ops.render.render(write_still=True)
+    r.resolution_x, r.resolution_y, r.resolution_percentage, r.filepath = keep
+    mine = subject_stats(path)
+    print("render   :", mine)
+    # The model should show in about a third of the box it takes in the frame, or more.
+    if mine["subject_pct"] < 100 * expected * 0.2:
+        if mine["image_brightness"] > 0.9:
+            problems.append("the model cannot be told apart from the background: the render is burnt to white. "
+                            "Lower the sun and the world strength (halve them) and check again.")
+        elif mine["image_brightness"] < 0.15:
+            problems.append("the render is very dark (brightness %.2f): the model cannot be seen. Add world light or raise the sun." % mine["image_brightness"])
+        else:
+            problems.append("the model cannot be told apart from the background: it has the same color. "
+                            "Check the materials of the model and of the backdrop.")
+    elif mine["subject_pct"] >= 0.5:
+        if mine["burnt_pct"] > 15:
+            problems.append("%.0f%% of the model is burnt to white: lower the sun strength." % mine["burnt_pct"])
+        if mine["brightness"] < 0.2:
+            problems.append("the model is very dark (brightness %.2f): add world light or raise the sun." % mine["brightness"])
+        if len(mine.get("colors", [])) < 2:
+            problems.append("the model shows a single color: check that each part has its own material and that the light is not washing them out.")
+    ref_path = find_reference(reference_name)
+    if ref_path:
+        ref = subject_stats(ref_path)
+        print("reference:", os.path.basename(ref_path), ref)
+        if ref["subject_pct"] >= 2 and mine["subject_pct"] >= 0.5:
+            if abs(mine["box"]["width"] - ref["box"]["width"]) > 0.12 or abs(mine["box"]["height"] - ref["box"]["height"]) > 0.12:
+                problems.append("framing differs: the subject takes %s x %s of the reference and %s x %s of the render. Run frame_camera(%r, fill=%s)."
+                                % (ref["box"]["width"], ref["box"]["height"], mine["box"]["width"], mine["box"]["height"],
+                                   collection_name, max(ref["box"]["width"], ref["box"]["height"])))
+            if abs(mine["brightness"] - ref["brightness"]) > 0.1:
+                problems.append("the subject is %s than in the reference (%.2f against %.2f): %s the sun and the world strength."
+                                % ("darker" if mine["brightness"] < ref["brightness"] else "brighter", mine["brightness"], ref["brightness"],
+                                   "raise" if mine["brightness"] < ref["brightness"] else "lower"))
+            if mine["saturation"] < ref["saturation"] - 0.1:
+                problems.append("the subject's colors are duller than the reference's (%.2f against %.2f): set the view transform to Standard, "
+                                "keep the world light white or grey, and check the Base Color of the materials." % (mine["saturation"], ref["saturation"]))
+    else:
+        print("reference: no file (compare the colors above with the image you were shown)")
+    for p in problems:
+        print("PROBLEM:", p)
+    print("FINAL CHECK:", "%d problem(s) to fix or to report" % len(problems) if problems else "no problem found by the measurements")
+
+# The last call of the task. The second argument is the stored name of the reference image,
+# exactly as this conversation shows it (a line such as storage/uploads/1791118524833-house.png);
+# leave it "" when the conversation gave you no such name.
+final_check("LP_Model", "1791118524833-house.png")
+```
+
+How to use it:
+
+- **Fix each `PROBLEM:` and run it again, two rounds at most.** One thing per round: the
+  light first, then the framing, then the colors. A correction made by eye overshoots
+  (too close becomes too far, burnt becomes dark): use the numbers and the call the
+  message names (`frame_camera("LP_Model", fill=…)` places the camera for you).
+- **The report quotes the last output**: the model's share of the frame, its brightness and
+  colors, and every `PROBLEM:` line that is still there. Do not write that the result
+  matches the reference, or that it is finished, while a `PROBLEM:` line remains: say
+  which one. Never write a number that this function did not print.
+- **The reference file** is opened only by a name this conversation gave you. Never look
+  through the uploads folder for "the latest image": other conversations keep their
+  attachments there. Without a name, compare the printed colors with the image you were
+  shown, and say that the comparison was by eye.
+- **Light and backdrop**: keep the world light white or grey; to get a colored background,
+  color the backdrop object (name it `Backdrop…` or `Ground…`), never the world light,
+  which would tint the whole model. Make the backdrop far larger than the model (20 times
+  or more) so no edge shows. A white background does not need a strong light: a sun of
+  2-4 and a world of 0.5-1.0 is the normal range; far above it everything burns to white.
 
 ## Approvals in HydraOps
 
@@ -172,9 +378,10 @@ your report.
 
 ## Before you say it is done
 
+- `final_check` was your last call, its output is in the report, and no `PROBLEM:` line
+  is left without being named.
 - Screenshot taken after the last change, and it matches the request. With a reference:
-  taken from its angle and compared part by part, with the framing, brightness and colors
-  measured (references/match-reference.md) and the numbers in the report.
+  taken from its angle and compared part by part.
 - Every object has its material: run the check in the reference file and fix any object
   it lists (an object without one shows up plain white).
 - The report says what still differs. Do not call a model finished or polished while a
