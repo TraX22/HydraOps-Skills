@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "name": "comfyui",
+  "title": "ComfyUI",
+  "version": "1.0.0",
+  "author": "HydraOps",
+  "description": "The official MCP server from Comfy Org for a ComfyUI running on your own computer: validate a workflow, run it and follow the job, for images, video, audio and 3D models generated locally. Works with HydraOps' comfy_workflows tool, which prepares the workflows you saved and brings back the result.",
+  "homepage": "https://docs.comfy.org/agent-tools/local",
+  "server": {
+    "command": "uvx",
+    "args": [
+      "--with",
+      "comfy-cli==1.22.0",
+      "comfy-mcp==0.10.0"
+    ],
+    "env": {
+      "COMFYUI_URL": "http://127.0.0.1:8188"
+    },
+    "toolTimeoutSeconds": 900
+  },
+  "requires": {
+    "notes": [
+      "ComfyUI running while the agent works: the portable, desktop or manual install, on this computer or another one on your network. The connection reaches it through its address (COMFYUI_URL), not through its install folder.",
+      "The models and custom nodes a workflow uses must already be installed in that ComfyUI.",
+      "HydraOps 0.1.52 or newer: a generation takes minutes, and older versions cut every tool call at 30 seconds.",
+      "The first start downloads the server and takes about a minute."
+    ],
+    "setup": []
+  },
+  "toolRisk": {
+    "server_info": "neutral",
+    "auth_status": "neutral",
+    "auth_login": "acts",
+    "run_workflow": "acts",
+    "generate_image": "acts",
+    "list_partner_models": "read",
+    "partner_model_schema": "read",
+    "partner_generate": "both",
+    "emit_partner_workflow": "acts",
+    "run_template": "both",
+    "job": "neutral",
+    "system_stats": "neutral",
+    "free_memory": "acts",
+    "fetch_outputs": "acts",
+    "launch_comfyui": "acts",
+    "stop_comfyui": "acts",
+    "restart_comfyui": "acts",
+    "update_comfyui": "both",
+    "switch_comfyui_version": "both",
+    "install_node": "both",
+    "get_logs": "neutral",
+    "discover": "neutral",
+    "which": "neutral",
+    "project": "acts",
+    "search_templates": "read",
+    "get_template": "read",
+    "fetch_template": "both",
+    "nodes": "neutral",
+    "node_dependencies": "neutral",
+    "workflow_deps": "neutral",
+    "search_models": "neutral",
+    "download_model": "both",
+    "download": "neutral",
+    "upload_file": "acts",
+    "validate_workflow": "neutral",
+    "list_workflow_slots": "neutral",
+    "list_workflow_notes": "neutral",
+    "set_workflow_slot": "acts",
+    "vary_workflow": "acts"
+  },
+  "tips": [
+    "Give an agent the comfy_workflows tool plus three tools of this connection instead of all 39: comfyui_validate_workflow, comfyui_run_workflow and comfyui_job. That is enough to run the workflows you saved in ComfyUI.",
+    "To change a value of a workflow before running it (a lighter model, another seed), add comfyui_list_workflow_slots and comfyui_set_workflow_slot.",
+    "The template gallery (comfyui_search_templates, comfyui_get_template, comfyui_fetch_template) is content from the internet: after an agent reads it, each step that acts waits for your approval.",
+    "Leave out the tools that change the install (update_comfyui, switch_comfyui_version, install_node, download_model) and partner_generate, which spends Comfy credits."
+  ]
+}

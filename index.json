@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-05T12:54:21.886Z",
+  "generatedAt": "2026-10-05T18:41:06.775Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -87,6 +87,23 @@
           "path": "references/bpy-patterns.md",
           "sha256": "c084d4b94b1bc03ac84dd0ecee8e36a70fce05523895e4eee7c272d7255674ec",
           "size": 7927
+        }
+      ]
+    },
+    {
+      "name": "comfyui-image-to-3d",
+      "description": "Turns an image into a 3D model (GLB) with the user's local ComfyUI - choosing the right saved workflow for the image (a single view or a sheet of several views), picking the generator when a workflow offers two, asking for a lighter model when it is meant for a game, and reporting the result honestly. Use when the user attaches or names an image and asks for a 3D model, mesh or GLB of what it shows, or asks to reconstruct an object in 3D from a picture. Needs the comfy_workflows tool and the ComfyUI connection.",
+      "author": "HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "comfy_workflows",
+        "comfyui"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "2e823d95fd580cd1db0fa28dc324151640637c6a388c36a6af131114c517ae30",
+          "size": 5511
         }
       ]
     },
@@ -364,6 +381,26 @@
           "path": "preset.json",
           "sha256": "5647723f074d4dd2f873b43df643d7f11239f86563a1abc7da8923c9382050c7",
           "size": 3431
+        }
+      ]
+    },
+    {
+      "name": "comfyui",
+      "title": "ComfyUI",
+      "description": "The official MCP server from Comfy Org for a ComfyUI running on your own computer: validate a workflow, run it and follow the job, for images, video, audio and 3D models generated locally. Works with HydraOps' comfy_workflows tool, which prepares the workflows you saved and brings back the result.",
+      "version": "1.0.0",
+      "launcher": "uvx",
+      "toolCount": 39,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "f3a435ddd2d7171214fbe545c7fb7c9a452a972c4eb030048b8b370a520eecc4",
+          "size": 4580
+        },
+        {
+          "path": "preset.json",
+          "sha256": "da4c1df74368aed2871ccca952f03142f28656023c29e2d7af01d62896f2cc89",
+          "size": 3249
         }
       ]
     },

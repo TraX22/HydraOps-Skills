@@ -24,6 +24,7 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [blender-materials-render](blender-materials-render/) | Materials that actually render, lighting, camera and a final image in Blender |
 | [blender-low-poly](blender-low-poly/) | Stylized low-poly models and dioramas: facets, palette materials, chunky proportions, sun-and-sky light |
 | [blender-game-export](blender-game-export/) | Preparing a Blender model and exporting GLB or FBX for Unity, Godot, Unreal or the web |
+| [comfyui-image-to-3d](comfyui-image-to-3d/) | An image turned into a 3D model with your local ComfyUI: which saved workflow to use, lighter models, an honest report (needs the ComfyUI connection) |
 | [social-x](social-x/) | Posts, threads and replies for X |
 | [social-youtube](social-youtube/) | Titles, descriptions, chapters, thumbnails, scripts and Shorts |
 | [social-tiktok](social-tiktok/) | Short-video scripts, captions and hashtags for TikTok |
@@ -40,6 +41,7 @@ up in the app under **Tools → Connections** (HydraOps 0.1.45 or newer).
 |---|---|---|
 | [blender](presets/blender/) | Build and edit 3D scenes in your Blender | `uvx` |
 | [blenderlab](presets/blenderlab/) | The official Blender Lab server: code, scene and file summaries, API and manual search, captures, renders | `uvx` (from git) |
+| [comfyui](presets/comfyui/) | The official Comfy server for your local ComfyUI: validate and run workflows, follow the job (images, video, audio, 3D) | `uvx` |
 | [documents](presets/documents/) | Web pages, PDFs and Office files as Markdown | `uvx` |
 | [playwright](presets/playwright/) | A real browser: pages with JavaScript, clicks, forms, screenshots | `npx` |
 
