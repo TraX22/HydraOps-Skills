@@ -3,7 +3,7 @@ name: blender-modeling
 description: Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
 metadata:
   author: HydraOps
-  version: 1.3.2
+  version: 1.3.3
   tools: [blenderlab, blender]
 ---
 
@@ -156,9 +156,11 @@ intended, not from what came out, delivers white or black images without knowing
 
 It makes a small render from the scene's camera, splits it into background (the colors of
 the four corners) and model (the rest), and prints: how much of the frame the model fills,
-its brightness, saturation and main colors, the objects without a material, and one
+its brightness, saturation and main colors, the objects without a material, the objects
+whose geometry is broken (faces joined to the wrong vertices), and one
 `PROBLEM:` line for each thing that is wrong. With the file name of the reference it
-measures that image the same way and compares framing, brightness and color.
+measures that image the same way and compares framing, brightness, color and how solid
+the silhouette is.
 
 ```python
 import bpy, os
@@ -272,6 +274,26 @@ def final_check(collection_name, reference_name=""):
     no_mat = [o.name for o in meshes if not o.material_slots or any(s.material is None for s in o.material_slots)]
     if no_mat:
         problems.append("objects without a material (they render white): %s" % ", ".join(no_mat[:8]))
+    # Broken geometry: a face joined to the wrong vertices crosses over itself (its outline turns both ways).
+    broken = []
+    for o in meshes:
+        crossed = total = 0
+        for p in o.data.polygons:
+            co = [o.data.vertices[i].co for i in p.vertices]
+            k = len(co)
+            if k < 4:
+                continue
+            total += 1
+            limit = 1e-4 * max((a - b).length for a in co for b in co) ** 2
+            turns = [(co[(i + 1) % k] - co[i]).cross(co[(i + 2) % k] - co[(i + 1) % k]).dot(p.normal) for i in range(k)]
+            if min(turns) < -limit and max(turns) > limit:
+                crossed += 1
+        if total >= 12 and crossed > 0.1 * total:
+            broken.append("%s (%d%% of its faces)" % (o.name, round(100 * crossed / total)))
+    if broken:
+        problems.append("broken geometry, faces twisted and stretched between the wrong vertices: %s. Delete these objects and build them "
+                        "again, each piece finished in its own bmesh before it is added to the object (lp_blocks in blender-low-poly)."
+                        % ", ".join(broken[:8]))
     # How much of the frame the model fills, from its real shape (its vertices), not its box.
     pts = _model_points(scene, cam, col)
     expected = 0.0
@@ -319,6 +341,13 @@ def final_check(collection_name, reference_name=""):
                 problems.append("framing differs: the subject takes %s x %s of the reference and %s x %s of the render. Run frame_camera(%r, fill=%s)."
                                 % (ref["box"]["width"], ref["box"]["height"], mine["box"]["width"], mine["box"]["height"],
                                    collection_name, max(ref["box"]["width"], ref["box"]["height"])))
+            # How solid the silhouette is inside its own box: a model with missing or scattered parts is far emptier.
+            fill_ref = ref["subject_pct"] / 100 / max(1e-6, ref["box"]["width"] * ref["box"]["height"])
+            fill_mine = mine["subject_pct"] / 100 / max(1e-6, mine["box"]["width"] * mine["box"]["height"])
+            if fill_ref >= 0.4 and fill_mine < 0.6 * fill_ref:
+                problems.append("the silhouette is much emptier than the reference's (the model covers %d%% of its box, the reference %d%%): "
+                                "parts are missing, too thin or scattered. The shape does not match yet; say so in the report."
+                                % (round(100 * fill_mine), round(100 * fill_ref)))
             if abs(mine["brightness"] - ref["brightness"]) > 0.1:
                 problems.append("the subject is %s than in the reference (%.2f against %.2f): %s the sun and the world strength."
                                 % ("darker" if mine["brightness"] < ref["brightness"] else "brighter", mine["brightness"], ref["brightness"],
