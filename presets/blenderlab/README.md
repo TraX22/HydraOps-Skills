@@ -6,17 +6,9 @@ The official MCP server from [Blender Lab](https://www.blender.org/lab/mcp-serve
 - Needs **Blender 5.1+** with the official **MCP** add-on (`https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip`) installed, enabled and its server started, and *Allow Online Access* turned on in Blender's System preferences.
 - Blender Lab marks it as experimental, and says plainly that it executes model-written code without real guards.
 
-## This one or the Blender connection?
+## Port
 
-| | BlenderLab (this) | Blender (`mcp-for-blender`) |
-|---|---|---|
-| Maintained by | Blender Foundation | Community |
-| Blender | 5.1+ | 3.0+ |
-| Tools | 26: code, scene and file summaries, API and manual search, captures, renders | 36: code, scene info, captures, asset libraries, 3D generators |
-| Bundled documentation | Python API reference and user manual, searchable offline | API lookup |
-| Asset downloads, AI generators | No | Yes |
-
-Both add-ons listen on port **9876** and speak different protocols: enable one of them, or move one to another port (the add-on's preferences, and `BLENDER_MCP_PORT` in this connection).
+The add-on listens on port **9876**. Another Blender add-on that uses the same port (the community "MCP for Blender" one, if you still have it installed) must be disabled, or moved to another port in its preferences; this connection's port is `BLENDER_MCP_PORT`.
 
 ## What the tools do
 

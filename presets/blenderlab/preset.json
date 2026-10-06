@@ -2,7 +2,7 @@
   "schema": 1,
   "name": "blenderlab",
   "title": "BlenderLab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "HydraOps",
   "description": "The official MCP server from Blender Lab (Blender Foundation): run Python in your Blender, inspect the scene and the blend file, search the bundled Python API reference and user manual, capture the window and render.",
   "homepage": "https://www.blender.org/lab/mcp-server/",
@@ -23,7 +23,7 @@
       "Blender 5.1 or newer, open while the agent works.",
       "Git (uvx fetches the server from Blender's repository); the first start takes about a minute.",
       "The official \"MCP\" add-on from Blender Lab, installed and enabled in Blender, with \"Allow Online Access\" on in Blender's System preferences and its server started (the add-on's preferences have a start button and an auto-start option).",
-      "It uses port 9876, the same as the \"MCP for Blender\" add-on of the Blender connection: enable only one of the two add-ons, or change the port in the add-on's preferences and in this connection (BLENDER_MCP_PORT)."
+      "It uses port 9876. If the community \"MCP for Blender\" add-on is still installed in Blender, disable it or move it to another port; this connection's port is BLENDER_MCP_PORT."
     ],
     "setup": [
       {
@@ -61,7 +61,6 @@
     "search_manual_docs": "neutral"
   },
   "tips": [
-    "The tool names differ from the Blender connection's: get_objects_summary and get_object_detail_summary instead of get_scene_info and get_object_info, get_screenshot_of_window_as_image for captures, get_python_api_docs and search_api_docs to check the API.",
     "Blender's own warning applies: the server runs model-written Python in your Blender with only a light guard. Keep backups of files you care about."
   ]
 }

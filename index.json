@@ -1,21 +1,20 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-05T18:41:06.775Z",
+  "generatedAt": "2026-10-06T11:47:04.402Z",
   "skills": [
     {
       "name": "blender-game-export",
-      "description": "Prepares a Blender model for a game engine and exports it as glTF/GLB or FBX through a Blender connection (the official Blender Lab server or MCP for Blender) - applied transforms, origin and pivot, scale and axes, triangle count, normals, UVs, material slots, naming, and a check of the exported file. Use when the user wants a Blender model in Unity, Godot, Unreal or a web viewer, asks to export to GLB, glTF or FBX, or reports that an exported model arrives rotated, tiny, huge, untextured or with broken shading.",
+      "description": "Prepares a Blender model for a game engine and exports it as glTF/GLB or FBX through a Blender connection (the official BlenderLab server) - applied transforms, origin and pivot, scale and axes, triangle count, normals, UVs, material slots, naming, and a check of the exported file. Use when the user wants a Blender model in Unity, Godot, Unreal or a web viewer, asks to export to GLB, glTF or FBX, or reports that an exported model arrives rotated, tiny, huge, untextured or with broken shading.",
       "author": "HydraOps",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "tools": [
-        "blenderlab",
-        "blender"
+        "blenderlab"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "61d9a5c61412cfeac01ebdbbd62029a6b76b7c9a502edef4e25087a4771600ee",
-          "size": 8567
+          "sha256": "4f34a661253792f0175d0393e1268a81e725585fed1db692d05ffcbfefe15a8d",
+          "size": 8053
         },
         {
           "path": "references/export-recipes.md",
@@ -26,18 +25,17 @@
     },
     {
       "name": "blender-low-poly",
-      "description": "Builds stylized low-poly models and scenes in Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
+      "description": "Builds stylized low-poly models and scenes in Blender through a Blender connection (the official BlenderLab server) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.",
       "author": "HydraOps",
-      "version": "1.3.4",
+      "version": "1.3.5",
       "tools": [
-        "blenderlab",
-        "blender"
+        "blenderlab"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "80e04492c3b2ac819039fa3600522da01a183cef0091fa19a2dcb49e89f51243",
-          "size": 28019
+          "sha256": "def95754b3595fd7c43658d3fafee4d75af27bb9add9384c7e254d6b155870cb",
+          "size": 27521
         },
         {
           "path": "references/low-poly-recipes.md",
@@ -48,18 +46,17 @@
     },
     {
       "name": "blender-materials-render",
-      "description": "Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official Blender Lab server or MCP for Blender). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.",
+      "description": "Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official BlenderLab server). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.",
       "author": "HydraOps",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "tools": [
-        "blenderlab",
-        "blender"
+        "blenderlab"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "749c12da8f78d3b00db6aa9da5247dee28b00cd13428a270dc80e48e9b8076f1",
-          "size": 9331
+          "sha256": "775ab8ffee416079d99f118a75c4d49b31cd1d920f23630fa2d32a14a146ecac",
+          "size": 8838
         },
         {
           "path": "references/shading-and-render.md",
@@ -70,18 +67,17 @@
     },
     {
       "name": "blender-modeling",
-      "description": "Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
+      "description": "Builds and edits 3D models in the user's Blender through a Blender connection (the official BlenderLab server) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.",
       "author": "HydraOps",
-      "version": "1.3.3",
+      "version": "1.3.4",
       "tools": [
-        "blenderlab",
-        "blender"
+        "blenderlab"
       ],
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "619c20bffd177e601700ee59b6bc4c9bb61d5e9937320e5641888ea1c04af189",
-          "size": 26704
+          "sha256": "0cffe2d01de026564ab53a1c7707ed6ba3fb33fa400b2f54ac64e20ab5026f8c",
+          "size": 25922
         },
         {
           "path": "references/bpy-patterns.md",
@@ -345,42 +341,22 @@
   ],
   "presets": [
     {
-      "name": "blender",
-      "title": "Blender",
-      "description": "Build and edit 3D scenes from the chat: objects, materials, lights, viewport captures and renders, through the MCP for Blender server.",
-      "version": "1.0.0",
-      "launcher": "uvx",
-      "toolCount": 36,
-      "files": [
-        {
-          "path": "README.md",
-          "sha256": "53c933982e82ace595942c6858bb518902a70963556d7723efd0ebf373d37e05",
-          "size": 1328
-        },
-        {
-          "path": "preset.json",
-          "sha256": "1316c8a62f7031cbc3feab513ebea8c765f7aa6357a25654ca01bdcbe2f63594",
-          "size": 2545
-        }
-      ]
-    },
-    {
       "name": "blenderlab",
       "title": "BlenderLab",
       "description": "The official MCP server from Blender Lab (Blender Foundation): run Python in your Blender, inspect the scene and the blend file, search the bundled Python API reference and user manual, capture the window and render.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "launcher": "uvx",
       "toolCount": 26,
       "files": [
         {
           "path": "README.md",
-          "sha256": "ae82f1e3fc720913d1fe669032413b93130780ee818be8551020da12ca46a910",
-          "size": 2474
+          "sha256": "cd4cf779f03059cab967cbc32f727c50c69e0fe16b1e4f46ecd43bd75c57d227",
+          "size": 2075
         },
         {
           "path": "preset.json",
-          "sha256": "5647723f074d4dd2f873b43df643d7f11239f86563a1abc7da8923c9382050c7",
-          "size": 3431
+          "sha256": "4d57527d3f7e64af30a5f5c8ca3b01fdb78396e6d079796e64aa6e80bb87aa83",
+          "size": 3130
         }
       ]
     },

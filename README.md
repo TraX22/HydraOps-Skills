@@ -20,7 +20,7 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [github](github/) | Reading repos, triaging issues, reviewing PRs and writing on GitHub |
 | [human-writing](human-writing/) | Natural, human-sounding prose in any language |
 | [skill-creator](skill-creator/) | How to write a new skill for HydraOps |
-| [blender-modeling](blender-modeling/) | Building and editing 3D models in Blender, in small verified steps (needs the Blender connection) |
+| [blender-modeling](blender-modeling/) | Building and editing 3D models in Blender, in small verified steps (needs the BlenderLab connection) |
 | [blender-materials-render](blender-materials-render/) | Materials that actually render, lighting, camera and a final image in Blender |
 | [blender-low-poly](blender-low-poly/) | Stylized low-poly models and dioramas: facets, palette materials, chunky proportions, sun-and-sky light |
 | [blender-game-export](blender-game-export/) | Preparing a Blender model and exporting GLB or FBX for Unity, Godot, Unreal or the web |
@@ -39,7 +39,6 @@ up in the app under **Tools → Connections** (HydraOps 0.1.45 or newer).
 
 | Connection | What it gives the agent | Started with |
 |---|---|---|
-| [blender](presets/blender/) | Build and edit 3D scenes in your Blender | `uvx` |
 | [blenderlab](presets/blenderlab/) | The official Blender Lab server: code, scene and file summaries, API and manual search, captures, renders | `uvx` (from git) |
 | [comfyui](presets/comfyui/) | The official Comfy server for your local ComfyUI: validate and run workflows, follow the job (images, video, audio, 3D) | `uvx` |
 | [documents](presets/documents/) | Web pages, PDFs and Office files as Markdown | `uvx` |

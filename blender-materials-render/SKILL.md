@@ -1,45 +1,44 @@
 ---
 name: blender-materials-render
-description: Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official Blender Lab server or MCP for Blender). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.
+description: Gives Blender objects materials that actually render (Principled BSDF, glass, metal, emission, procedural textures), sets up lighting, world, camera and render settings, and produces a final image through a Blender connection (the official BlenderLab server). Use when the user asks for materials, colors, textures, lighting, a camera or a render of a Blender scene, or when a render comes out black, grey, flat or noisy.
 metadata:
   author: HydraOps
-  version: 1.1.0
-  tools: [blenderlab, blender]
+  version: 1.1.1
+  tools: [blenderlab]
 ---
 
 # Materials, lighting and rendering in Blender
 
-You work in the user's Blender through a **Blender connection**.
+You work in the user's Blender through the **BlenderLab connection**.
 The viewport capture and the final render are different things: the capture shows
 whatever shading mode the viewport is in, the render uses the render engine, the lights
 and the world. Most "it looked fine but the render is wrong" problems come from that.
 
-## Which Blender connection you have
+## Your Blender connection
 
-HydraOps offers two Blender connections. Your tool names tell you which one you were
-given; use the names of that column and never call a tool of the other.
+You work through **BlenderLab**, the official Blender Lab server; its tools are
+`blenderlab_…`:
 
-| What you need | **BlenderLab**, the official Blender Lab server: tools `blenderlab_…` | **Blender**, MCP for Blender: tools `blender_…` |
-|---|---|---|
-| What is in the scene | `get_objects_summary` | `get_scene_info` |
-| One object in detail | `get_object_detail_summary` (by `name`) | `get_object_info` |
-| The file: saved or not, its path | `get_blendfile_summary_path_info` | code: `bpy.data.filepath` |
-| Run Python | `execute_blender_code` | `execute_blender_code` |
-| See the 3D viewport | `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"` (whole window: `get_screenshot_of_window_as_image`) | `get_viewport_screenshot` |
-| Point the viewport at an object | `jump_to_view3d_object_by_name` | code |
-| Check the Python API | `get_python_api_docs` (an identifier such as `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs` | `bpy_api_lookup`, `describe_node_type` |
-| Quick render | `render_thumbnail_to_path`, `render_viewport_to_path`: the image goes to Blender's temp folder and the result gives the real path | code |
-| Export | code | `export_scene`, or code |
-| Asset libraries, 3D generators | none | Poly Haven, Sketchfab, Poly Pizza; Hyper3D, Hunyuan3D, Tripo |
+- What is in the scene: `get_objects_summary`; one object in detail:
+  `get_object_detail_summary` (by `name`). The file, saved or not, and its path:
+  `get_blendfile_summary_path_info`.
+- Run Python: `execute_blender_code`. Nothing survives between calls (carry your helpers in
+  each script); what the script prints comes back, and a dict assigned to `result` comes
+  back as data. Its guard refuses a few operators (quitting Blender, factory resets).
+- See the 3D viewport: `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"`
+  (the whole window: `get_screenshot_of_window_as_image`); point it at an object:
+  `jump_to_view3d_object_by_name`.
+- Check the Python API: `get_python_api_docs` (an identifier such as
+  `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs`.
+- Quick render: `render_thumbnail_to_path`, `render_viewport_to_path`; the image goes to
+  Blender's temp folder and the result gives the real path.
+- Export: code (`bpy.ops.export_scene.gltf`, `bpy.ops.export_scene.fbx`).
+- Asset libraries and 3D generators: none. Build the object, or ask the user for a file
+  to import.
 
-On both, do not count on anything surviving between `execute_blender_code` calls (carry
-your helpers in each script), and what the script prints comes back. On BlenderLab you
-can also assign a dict to `result` for structured data, and its guard refuses a few
-operators (quitting Blender, factory resets).
-
-If neither set of tools is available, stop and say so: the user has to install a Blender
-connection (Tools → Connections), give it to this agent, and have Blender open with that
-connection's add-on running. Do not describe work as done when you could not do it.
+If these tools are not available, stop and say so: the user has to install the BlenderLab
+connection (Tools → Connections), give it to this agent, and have Blender open with the
+add-on's server started. Do not describe work as done when you could not do it.
 
 ## Order of work
 

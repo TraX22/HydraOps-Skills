@@ -1,44 +1,43 @@
 ---
 name: blender-modeling
-description: Builds and edits 3D models in the user's Blender through a Blender connection (the official Blender Lab server or MCP for Blender) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
+description: Builds and edits 3D models in the user's Blender through a Blender connection (the official BlenderLab server) - inspecting the scene, writing bpy code in small verified steps, real-world scale, clean naming, modifiers and checking the result with viewport screenshots. Use when the user asks to model, build, create, fix or change an object or a scene in Blender, or to make a 3D model from a description or a reference image.
 metadata:
   author: HydraOps
-  version: 1.3.3
-  tools: [blenderlab, blender]
+  version: 1.3.4
+  tools: [blenderlab]
 ---
 
 # Modeling in Blender
 
-You work inside the user's running Blender through a **Blender connection**. You cannot
+You work inside the user's running Blender through the **BlenderLab connection**. You cannot
 see the viewport unless you ask for a capture, and every change you make is real: it
 lands in the file the user has open.
 
-## Which Blender connection you have
+## Your Blender connection
 
-HydraOps offers two Blender connections. Your tool names tell you which one you were
-given; use the names of that column and never call a tool of the other.
+You work through **BlenderLab**, the official Blender Lab server; its tools are
+`blenderlab_…`:
 
-| What you need | **BlenderLab**, the official Blender Lab server: tools `blenderlab_…` | **Blender**, MCP for Blender: tools `blender_…` |
-|---|---|---|
-| What is in the scene | `get_objects_summary` | `get_scene_info` |
-| One object in detail | `get_object_detail_summary` (by `name`) | `get_object_info` |
-| The file: saved or not, its path | `get_blendfile_summary_path_info` | code: `bpy.data.filepath` |
-| Run Python | `execute_blender_code` | `execute_blender_code` |
-| See the 3D viewport | `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"` (whole window: `get_screenshot_of_window_as_image`) | `get_viewport_screenshot` |
-| Point the viewport at an object | `jump_to_view3d_object_by_name` | code |
-| Check the Python API | `get_python_api_docs` (an identifier such as `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs` | `bpy_api_lookup`, `describe_node_type` |
-| Quick render | `render_thumbnail_to_path`, `render_viewport_to_path`: the image goes to Blender's temp folder and the result gives the real path | code |
-| Export | code | `export_scene`, or code |
-| Asset libraries, 3D generators | none | Poly Haven, Sketchfab, Poly Pizza; Hyper3D, Hunyuan3D, Tripo |
+- What is in the scene: `get_objects_summary`; one object in detail:
+  `get_object_detail_summary` (by `name`). The file, saved or not, and its path:
+  `get_blendfile_summary_path_info`.
+- Run Python: `execute_blender_code`. Nothing survives between calls (carry your helpers in
+  each script); what the script prints comes back, and a dict assigned to `result` comes
+  back as data. Its guard refuses a few operators (quitting Blender, factory resets).
+- See the 3D viewport: `get_screenshot_of_area_as_image` with `area_ui_type: "VIEW_3D"`
+  (the whole window: `get_screenshot_of_window_as_image`); point it at an object:
+  `jump_to_view3d_object_by_name`.
+- Check the Python API: `get_python_api_docs` (an identifier such as
+  `bpy.types.BevelModifier`), `search_api_docs`; the manual: `search_manual_docs`.
+- Quick render: `render_thumbnail_to_path`, `render_viewport_to_path`; the image goes to
+  Blender's temp folder and the result gives the real path.
+- Export: code (`bpy.ops.export_scene.gltf`, `bpy.ops.export_scene.fbx`).
+- Asset libraries and 3D generators: none. Build the object, or ask the user for a file
+  to import.
 
-On both, do not count on anything surviving between `execute_blender_code` calls (carry
-your helpers in each script), and what the script prints comes back. On BlenderLab you
-can also assign a dict to `result` for structured data, and its guard refuses a few
-operators (quitting Blender, factory resets).
-
-If neither set of tools is available, stop and say so: the user has to install a Blender
-connection (Tools → Connections), give it to this agent, and have Blender open with that
-connection's add-on running. Do not describe work as done when you could not do it.
+If these tools are not available, stop and say so: the user has to install the BlenderLab
+connection (Tools → Connections), give it to this agent, and have Blender open with the
+add-on's server started. Do not describe work as done when you could not do it.
 
 ## The loop
 
@@ -398,12 +397,9 @@ changes into one coherent call rather than many tiny ones when approvals are in 
 
 ## Assets and generators
 
-Only the **Blender** (MCP for Blender) connection has them: it can search and download
-assets (Poly Haven, Sketchfab, Poly Pizza) and call 3D generators (Hyper3D, Hunyuan3D,
-Tripo); check the matching `get_…_status` tool first. With **BlenderLab** there are
-none: build the object, or ask the user for a file to import. Generators can cost the user money and downloads bring third-party files
-with their own licenses: ask before using either, and name the source and license in
-your report.
+BlenderLab has no asset-library or 3D-generator tools. Build the object, or ask the user
+for a file to import; a file the user gives you can carry a license of its own, so name
+its source in your report.
 
 ## Before you say it is done
 
