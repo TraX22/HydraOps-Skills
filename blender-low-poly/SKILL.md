@@ -3,7 +3,7 @@ name: blender-low-poly
 description: Builds stylized low-poly models and scenes in Blender through a Blender connection (the official BlenderLab server) - chunky faceted shapes with few polygons, flat shading, a small color palette of plain materials, exaggerated proportions, and the soft lighting the style needs. Use when the user asks for low poly, faceted, stylized, cartoon or game-style models (a house, tree, rock, terrain, vehicle, prop, diorama) or wants a model to look like a low-poly reference image.
 metadata:
   author: HydraOps
-  version: 1.3.5
+  version: 1.3.6
   tools: [blenderlab]
 ---
 
@@ -230,7 +230,7 @@ frame, a burnt or dark render, and, with the reference's file name, the differen
 framing, brightness, color and how solid the silhouette is.
 
 ```python
-import bpy, os
+import bpy, os, re
 import numpy as np
 from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
@@ -276,18 +276,48 @@ def subject_stats(path, size=128):
                       int(round(100 * counts[k] / len(keys)))) for k in counts.argsort()[::-1][:5] if counts[k]]
     return out
 
+# Where a HydraOps installation keeps its data (storage/uploads hangs from it): the data
+# folder it was told (HYDRA_DATA_DIR), the installer's folder per system, and a clone of
+# the repository, which keeps its data inside itself when run from source.
+UPLOAD_ROOTS = [os.environ.get("HYDRA_DATA_DIR", ""),
+                os.path.join(os.environ.get("APPDATA", ""), "HydraOps", "data"),
+                os.path.expanduser("~/Library/Application Support/HydraOps/data"),
+                os.path.expanduser("~/.config/HydraOps/data"),
+                os.path.expanduser("~/HydraOps")]
+UPLOAD_FOLDERS = [os.path.join(r, "storage", "uploads") for r in UPLOAD_ROOTS if r]
+
 def find_reference(file_name):
-    """The path of an image attached in THIS conversation, by its stored file name (the last part
-    of a line like "storage/uploads/1791118524833-house.png"). None when it is not there."""
-    name = os.path.basename(str(file_name or "").replace("\\", "/"))
+    """The path of an image attached in THIS conversation, named as the conversation shows it:
+    "storage/uploads/1791118524833-house.png", the bare "1791118524833-house.png", or a full path.
+    None when it is not there."""
+    raw = str(file_name or "").replace("\\", "/").strip()
+    name = os.path.basename(raw)
     if not name or os.path.splitext(name)[1].lower() not in (".png", ".jpg", ".jpeg", ".webp"):
         return None
-    for root in (os.path.join(os.environ.get("APPDATA", ""), "HydraOps", "data"),
-                 os.path.expanduser("~/Library/Application Support/HydraOps/data"),
-                 os.path.expanduser("~/.config/HydraOps/data")):
-        path = os.path.join(root, "storage", "uploads", name)
+    if os.path.isabs(raw) and os.path.isfile(raw):
+        return os.path.normpath(raw)
+    for folder in UPLOAD_FOLDERS:
+        path = os.path.join(folder, name)
         if os.path.isfile(path):
             return path
+    # The stored name starts with a timestamp that is easy to copy with one digit wrong:
+    # fall back to the newest upload with the same original name after the timestamp.
+    m = re.match(r"^\d{10,}-(.+)$", name)
+    if m:
+        pattern = re.compile(r"^\d{10,}-" + re.escape(m.group(1)) + "$")
+        newest = None
+        for folder in UPLOAD_FOLDERS:
+            try:
+                entries = os.listdir(folder)
+            except OSError:
+                continue
+            for entry in entries:
+                if pattern.match(entry):
+                    path = os.path.join(folder, entry)
+                    if newest is None or os.path.getmtime(path) > newest[0]:
+                        newest = (os.path.getmtime(path), path)
+        if newest:
+            return newest[1]
     return None
 
 def _model_points(scene, cam, col):
@@ -423,7 +453,8 @@ def final_check(collection_name, reference_name=""):
                 problems.append("the subject's colors are duller than the reference's (%.2f against %.2f): set the view transform to Standard, "
                                 "keep the world light white or grey, and check the Base Color of the materials." % (mine["saturation"], ref["saturation"]))
     else:
-        print("reference: no file (compare the colors above with the image you were shown)")
+        print("reference: no file named %r in %s (compare the colors above with the image you were shown)"
+              % (os.path.basename(str(reference_name or "")), ", ".join(f for f in UPLOAD_FOLDERS if os.path.isdir(f)) or "any known uploads folder"))
     for p in problems:
         print("PROBLEM:", p)
     print("FINAL CHECK:", "%d problem(s) to fix or to report" % len(problems) if problems else "no problem found by the measurements")
