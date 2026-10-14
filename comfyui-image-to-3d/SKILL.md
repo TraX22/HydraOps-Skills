@@ -1,9 +1,9 @@
 ---
 name: comfyui-image-to-3d
-description: Turns an image into a 3D model (GLB) with the user's local ComfyUI - choosing the right saved workflow for the image (a single view or a sheet of several views), picking the generator when a workflow offers two, asking for a lighter model when it is meant for a game, and reporting the result honestly. Use when the user attaches or names an image and asks for a 3D model, mesh or GLB of what it shows, or asks to reconstruct an object in 3D from a picture. Needs the comfy_workflows tool and the ComfyUI connection.
+description: Turns an image into a 3D model (GLB) with the user's local ComfyUI - choosing the right saved workflow for the image, running it with the values the user saved, picking the generator when a workflow offers two, lowering the face count only when the user asks for a lighter model, and reporting the result honestly. Use when the user attaches or names an image and asks for a 3D model, mesh or GLB of what it shows, or asks to reconstruct an object in 3D from a picture. Needs the comfy_workflows tool and the ComfyUI connection.
 metadata:
   author: HydraOps
-  version: 1.0.0
+  version: 1.1.0
   tools: [comfy_workflows, comfyui]
 ---
 
@@ -31,7 +31,7 @@ image is:
 
 | The image is | Use a workflow for |
 |---|---|
-| One picture of one object (a photo, a render, a concept) | image to 3D model, single image |
+| One picture of one object (a photo, a render, a concept) | image to 3D model, single image (a multi-view workflow the user names works with one picture too) |
 | A sheet with several views of the same object (front, side, back; a character turnaround) | multi-view to 3D model |
 | Several separate attached images of the same object | multi-view, if the workflow reads several files; otherwise ask which image to use |
 
@@ -60,18 +60,29 @@ the workflow's switches do.
   leave it as the user saved it. Change it only when they name the generator they want,
   with `comfyui_list_workflow_slots` to find the switch and `comfyui_set_workflow_slot`
   to set it, and say in the report which one ran.
-- **A lighter model.** Reconstruction gives hundreds of thousands of triangles. When the
-  user says it is for a game, the web or a phone, or asks for a light model, lower the
-  face count BEFORE running, in two calls on the prepared file:
+- **The user's values stay.** Run the workflow with the values the user saved. Do not
+  change `target_face_count`, the resolution, the sampler or anything else on your own,
+  not even when the picture looks simple or the last run gave a heavy model: a saved
+  workflow is the user's decision, and a value you lower "to help" produces a model
+  they did not ask for (a reconstruction decimated far below its detail comes out as a
+  crumpled shape, not a lighter copy). If you think a lighter model would serve them,
+  say so in the report and offer it; do not do it.
+- **A lighter model, only when asked.** When the user explicitly asks for a light model,
+  names a face count, or says it is for a game, the web or a phone, lower the face
+  count BEFORE running, in two calls on the prepared file:
   1. `comfyui_list_workflow_slots`, and in its answer find the slot whose name is
      `target_face_count` (it belongs to a `DecimateMesh` node); copy its `address`.
   2. `comfyui_set_workflow_slot` with `stdout: false` and
      `[{"address": "<that address>", "value": 50000}]` for a prop in a game (150000 for
-     a hero object the camera gets close to).
+     a hero object the camera gets close to). Never go below 50000 unless the user
+     names a lower number themselves.
   Then validate and run as usual, and say in the report what you set. If the workflow
   has no such slot, or you lack those two tools, run it as it is and say plainly that
   the model is heavy for a game and by how much.
-- **Resolution and sampler settings**: leave them. The workflow adapts to the image.
+- **One picture is enough for a multiview workflow.** A workflow that crops several
+  views out of its input works with a single photo too: the crops that fall outside the
+  picture come out empty and the model is built from the one real view. Do not go
+  looking for a sheet of views or try to make one; run it with the picture the user gave.
 
 ## When it does not run
 

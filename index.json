@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-11T13:17:51.101Z",
+  "generatedAt": "2026-10-14T13:00:27.006Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -88,9 +88,9 @@
     },
     {
       "name": "comfyui-image-to-3d",
-      "description": "Turns an image into a 3D model (GLB) with the user's local ComfyUI - choosing the right saved workflow for the image (a single view or a sheet of several views), picking the generator when a workflow offers two, asking for a lighter model when it is meant for a game, and reporting the result honestly. Use when the user attaches or names an image and asks for a 3D model, mesh or GLB of what it shows, or asks to reconstruct an object in 3D from a picture. Needs the comfy_workflows tool and the ComfyUI connection.",
+      "description": "Turns an image into a 3D model (GLB) with the user's local ComfyUI - choosing the right saved workflow for the image, running it with the values the user saved, picking the generator when a workflow offers two, lowering the face count only when the user asks for a lighter model, and reporting the result honestly. Use when the user attaches or names an image and asks for a 3D model, mesh or GLB of what it shows, or asks to reconstruct an object in 3D from a picture. Needs the comfy_workflows tool and the ComfyUI connection.",
       "author": "HydraOps",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "tools": [
         "comfy_workflows",
         "comfyui"
@@ -98,8 +98,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "2e823d95fd580cd1db0fa28dc324151640637c6a388c36a6af131114c517ae30",
-          "size": 5511
+          "sha256": "af2b3a85ea1d4a551560317c7c822f6595fdcf36e3ae35943ad027f06b34c2f2",
+          "size": 6481
         }
       ]
     },
