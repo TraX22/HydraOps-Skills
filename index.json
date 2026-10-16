@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-14T13:00:27.006Z",
+  "generatedAt": "2026-10-16T12:11:17.315Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -417,6 +417,26 @@
           "path": "preset.json",
           "sha256": "0bf73442fed706d83638f0b6b1017d64a7702d22eb26680f65f84b37f2da0f4c",
           "size": 1784
+        }
+      ]
+    },
+    {
+      "name": "unity",
+      "title": "Unity",
+      "description": "Unity's own MCP server (the Unity CLI with the Unity Pipeline package) for a Unity 6 editor open on this computer: build scenes, create and place objects, set components and materials, manage packages, capture the Scene and Game views, read the console, run tests and builds. Nine tools run or write code inside the editor; every call of those waits for your approval.",
+      "version": "1.0.0",
+      "launcher": "unity",
+      "toolCount": 160,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "aa00a76876fce0a59e8a98309f2dd8910e1f626855f59e9c34aa69d8c0d586c4",
+          "size": 6156
+        },
+        {
+          "path": "preset.json",
+          "sha256": "04819a5905e224a8e62332a7649af34efc2b504f506eeb13e6896bdcfb07cfb1",
+          "size": 8336
         }
       ]
     }

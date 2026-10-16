@@ -43,11 +43,13 @@ up in the app under **Tools → Connections** (HydraOps 0.1.45 or newer).
 | [comfyui](presets/comfyui/) | The official Comfy server for your local ComfyUI: validate and run workflows, follow the job (images, video, audio, 3D) | `uvx` |
 | [documents](presets/documents/) | Web pages, PDFs and Office files as Markdown | `uvx` |
 | [playwright](presets/playwright/) | A real browser: pages with JavaScript, clicks, forms, screenshots | `npx` |
+| [unity](presets/unity/) | Unity's own server for a Unity 6 editor: scenes, objects, materials, packages, captures, tests, builds; C# in the editor always asks | `unity` (the Unity CLI) |
 
 A preset is **configuration, not code**. `presets/<name>/preset.json` says how the server
-is started (only through `uvx`, `npx` or `docker`, or an `https` URL), with the program's
+is started (only through `uvx`, `npx`, `docker` or `unity`, or an `https` URL), with the program's
 version pinned, what it needs on the computer, and what each of its tools does
-(`toolRisk`: `neutral`, `read`, `acts` or `both`). That classification is what lets
+(`toolRisk`: `neutral`, `read`, `acts`, `both`, or `approve` for a tool whose every call
+waits for the user, such as code run inside the application). That classification is what lets
 HydraOps run read-only tools freely and hold the ones that act for approval only when
 they should be. `README.md` next to it explains the choices. See
 [the HydraOps manual](https://github.com/TraX22/HydraOps/blob/main/docs/en/09-tools.md#connections-ready-made-mcp-servers).

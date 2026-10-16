@@ -21,8 +21,10 @@ const IGNORED_DIRS = new Set(["scripts", "img", "node_modules", "presets"]);
 // Connection presets live in presets/<name>/ (preset.json + README.md).
 const PRESETS_DIR = join(ROOT, "presets");
 const PRESET_FILES = new Set(["preset.json", "README.md"]);
-const PRESET_LAUNCHERS = new Set(["uvx", "npx", "docker"]);
-const TOOL_CLASSES = new Set(["neutral", "read", "acts", "both"]);
+// `unity` is Unity's own CLI (a native binary Unity publishes; it has no uvx/npx form).
+const PRESET_LAUNCHERS = new Set(["uvx", "npx", "docker", "unity"]);
+// `approve`: every call of the tool waits for the user (code run inside an application).
+const TOOL_CLASSES = new Set(["neutral", "read", "acts", "both", "approve"]);
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 const errors = [];
@@ -159,8 +161,8 @@ for (const folder of topDirs) {
 
 // ── Connection presets ──
 // Fails when: preset.json is missing or not JSON; `name` differs from the folder; the
-// server is not started with uvx / npx / docker (or is not an https url); an argument is
-// not a plain string; a toolRisk value is not neutral | read | acts | both; or the
+// server is not started with uvx / npx / docker / unity (or is not an https url); an argument is
+// not a plain string; a toolRisk value is not neutral | read | acts | both | approve; or the
 // folder holds anything other than preset.json and README.md.
 const presets = [];
 let presetDirs = [];
