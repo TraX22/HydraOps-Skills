@@ -25,6 +25,7 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [blender-low-poly](blender-low-poly/) | Stylized low-poly models and dioramas: facets, palette materials, chunky proportions, sun-and-sky light |
 | [blender-game-export](blender-game-export/) | Preparing a Blender model and exporting GLB or FBX for Unity, Godot, Unreal or the web |
 | [comfyui-image-to-3d](comfyui-image-to-3d/) | An image turned into a 3D model with your local ComfyUI: which saved workflow to use, lighter models, an honest report (needs the ComfyUI connection) |
+| [unity-scene-assembly](unity-scene-assembly/) | Assembling scenes in Unity from the prefabs the project already has: measured placement, tidy roots, a review camera and a capture in the chat (needs the Unity connection) |
 | [social-x](social-x/) | Posts, threads and replies for X |
 | [social-youtube](social-youtube/) | Titles, descriptions, chapters, thumbnails, scripts and Shorts |
 | [social-tiktok](social-tiktok/) | Short-video scripts, captions and hashtags for TikTok |
