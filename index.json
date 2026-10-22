@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-22T13:17:56.399Z",
+  "generatedAt": "2026-10-22T16:08:25.860Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -339,8 +339,8 @@
       ]
     },
     {
-      "name": "unity-scene-assembly",
-      "description": "Builds and arranges scenes in the user's Unity project through the Unity connection (Unity's own CLI as an MCP server) - placing and moving the prefabs and models the project already has (asset packs, the user's own prefabs), grouping them under tidy roots, lighting the result and showing it as a capture in the chat. Use when the user asks to build, lay out, populate, decorate or rearrange a level, a scene, a room, a village, a ruin, a camp or any environment in Unity from assets that are already in the project, or to move, rotate, duplicate, remove or tidy objects in an open scene.",
+      "name": "unity-prefab-edit",
+      "description": "Changes what a prefab is in the user's Unity project through the Unity connection (Unity's own CLI as an MCP server) - a variant of a pack's piece, a different default scale, a collider or another component with its values, another material, a child renamed or turned off - and swaps the copies already placed in a scene for the changed prefab. Use when the user asks to edit, modify, adjust or make a variant of a prefab, to add a collider, component, script values or material to a prefab, to change a prefab's size or pivot, or to replace the instances of a prefab in a scene with a new or changed one. For placing and arranging prefabs in a scene, see unity-scene-assembly.",
       "author": "HydraOps",
       "version": "1.0.0",
       "tools": [
@@ -349,8 +349,24 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "283dd81c17582a1f1e0e9513205f8203c166d739a714ebabd861ffc2d4f6546b",
-          "size": 14020
+          "sha256": "5a1691ef9844aa7f4f1bd3e6b72e2fbc6c3f5ad83c1404b86a0a076fafe3b37f",
+          "size": 13304
+        }
+      ]
+    },
+    {
+      "name": "unity-scene-assembly",
+      "description": "Builds and arranges scenes in the user's Unity project through the Unity connection (Unity's own CLI as an MCP server) - placing and moving the prefabs and models the project already has (asset packs, the user's own prefabs), grouping them under tidy roots, lighting the result and showing it as a capture in the chat. Use when the user asks to build, lay out, populate, decorate or rearrange a level, a scene, a room, a village, a ruin, a camp or any environment in Unity from assets that are already in the project, or to move, rotate, duplicate, remove or tidy objects in an open scene.",
+      "author": "HydraOps",
+      "version": "1.0.1",
+      "tools": [
+        "unity"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "665e62e509ceeb14dcce0830a9d22c6cf7def331c685c9ec631c95f8d3f50296",
+          "size": 14212
         }
       ]
     }

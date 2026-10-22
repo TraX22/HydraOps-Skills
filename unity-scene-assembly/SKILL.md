@@ -3,7 +3,7 @@ name: unity-scene-assembly
 description: Builds and arranges scenes in the user's Unity project through the Unity connection (Unity's own CLI as an MCP server) - placing and moving the prefabs and models the project already has (asset packs, the user's own prefabs), grouping them under tidy roots, lighting the result and showing it as a capture in the chat. Use when the user asks to build, lay out, populate, decorate or rearrange a level, a scene, a room, a village, a ruin, a camp or any environment in Unity from assets that are already in the project, or to move, rotate, duplicate, remove or tidy objects in an open scene.
 metadata:
   author: HydraOps
-  version: 1.0.0
+  version: 1.0.1
   tools: [unity]
 ---
 
@@ -173,7 +173,9 @@ user sees it in the chat as a card when the tool returns it inline.
 - **Re-aim before every capture.** The camera stays where the last capture left it,
   which is never where the new work is. Before each capture, compute the position and
   rotation for the center of what you just placed and apply them with `set_transform`,
-  in the same round as the capture if you like. A capture that does not show what you
+  in the same round as the capture if you like. A `ReviewCamera` left disabled by an
+  earlier task does not render: `set_active` it on first, and pass `source: "camera"`
+  with its name, or the capture silently comes from the main camera. A capture that does not show what you
   placed is not evidence of anything: move the camera and capture again, once.
 - **One capture per visible part, plus one of the whole.** A wide capture of the whole
   scene and a closer one of the part you just placed tell the user more than five
