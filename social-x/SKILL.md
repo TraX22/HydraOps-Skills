@@ -1,10 +1,10 @@
 ---
 name: social-x
-description: Write posts, threads and replies for X (formerly Twitter) - hooks, thread structure, reply strategy, link placement, hashtags, cadence and repurposing. Use when the user wants a tweet, an X post or thread, a reply, a launch announcement for X, or to adapt other content for X.
+description: Write and publish posts, threads and replies for X (formerly Twitter) - hooks, thread structure, reply strategy, link placement, hashtags, cadence, repurposing, and publishing on the user's connected accounts with x_post. Use when the user wants a tweet, an X post or thread, a reply, a launch announcement for X, to adapt other content for X, or to publish on X.
 metadata:
   author: HydraOps
-  version: 1.0.0
-  tools: [web_search, fetch_url]
+  version: 1.1.0
+  tools: [web_search, fetch_url, x_accounts, x_post]
 ---
 
 # X (Twitter)
@@ -106,3 +106,26 @@ away travel less. Write for someone scrolling fast who will decide in one line.
 
 Use [templates/post-and-thread.md](templates/post-and-thread.md). Always show character
 counts for each post and flag any over the limit.
+
+## Publishing (when `x_accounts` and `x_post` are available)
+
+HydraOps can publish directly on the accounts the user connected in Tools → X. The tools
+are only there when the user set that up; without them, deliver the text and stop.
+
+1. **Which account.** Call `x_accounts` first. One account: use it. Several and the
+   request does not say which (by name, handle or brand): ask before writing, a post on
+   the wrong brand is the costly mistake. None: say so, do not look for another way.
+2. **Final text, not a draft.** `x_post` is held for the user's approval, and the card
+   shows the text exactly as it will go out: send the version you would publish, with
+   the counts already checked (280 weighted characters, a URL counts as 23, whatever
+   its length). Anything over the limit is refused before reaching X.
+3. **One call per post or thread.** `parts` in order, each a reply to the one before;
+   the link in the last part; images by the file name of the user's attachments, up to
+   4 per part.
+4. **The user decides.** Approved: answer with the link the tool returns. Rejected: do
+   not resend the same text with cosmetic changes; ask what to change, or stop if the
+   user said no. Never split a rejected thread into single posts to get it through.
+5. **Cost is the user's.** X charges per post (more for a post with a link); say the
+   estimate when the user asks, and do not publish more parts than the request needs.
+6. **No deleting, no reading.** You cannot delete a post or read the timeline from here;
+   if the user wants a post gone, they do it on X.
