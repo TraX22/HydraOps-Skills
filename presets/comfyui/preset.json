@@ -2,7 +2,7 @@
   "schema": 1,
   "name": "comfyui",
   "title": "ComfyUI",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "HydraOps",
   "description": "The official MCP server from Comfy Org for a ComfyUI running on your own computer: validate a workflow, run it and follow the job, for images, video, audio and 3D models generated locally. Works with HydraOps' comfy_workflows tool, which prepares the workflows you saved and brings back the result.",
   "homepage": "https://docs.comfy.org/agent-tools/local",
@@ -13,14 +13,17 @@
       "comfy-cli==1.22.0",
       "comfy-mcp==0.10.0"
     ],
+    "cwd": "{{COMFYUI_PATH}}",
     "env": {
-      "COMFYUI_URL": "http://127.0.0.1:8188"
+      "COMFYUI_URL": "http://127.0.0.1:8188",
+      "COMFYUI_PATH": ""
     },
     "toolTimeoutSeconds": 900
   },
   "requires": {
     "notes": [
-      "ComfyUI running while the agent works: the portable, desktop or manual install, on this computer or another one on your network. The connection reaches it through its address (COMFYUI_URL), not through its install folder.",
+      "ComfyUI running while the agent works: the portable, desktop or manual install, on this computer or another one on your network. The connection reaches it through its address (COMFYUI_URL).",
+      "When that ComfyUI is on this computer, put its folder in COMFYUI_PATH (the one that holds main.py and the models folder): the server then works on that install for templates, models and saved workflows. Left empty, comfy-cli uses a default folder of its own (~/Documents/comfy/ComfyUI) for those. Needs HydraOps 0.1.89 or newer; older versions ignore the folder.",
       "The models and custom nodes a workflow uses must already be installed in that ComfyUI.",
       "HydraOps 0.1.52 or newer: a generation takes minutes, and older versions cut every tool call at 30 seconds.",
       "The first start downloads the server and takes about a minute."
