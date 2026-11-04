@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-22T20:36:27.670Z",
+  "generatedAt": "2026-11-03T14:30:50.627Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -398,19 +398,19 @@
       "name": "comfyui",
       "title": "ComfyUI",
       "description": "The official MCP server from Comfy Org for a ComfyUI running on your own computer: validate a workflow, run it and follow the job, for images, video, audio and 3D models generated locally. Works with HydraOps' comfy_workflows tool, which prepares the workflows you saved and brings back the result.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "launcher": "uvx",
       "toolCount": 39,
       "files": [
         {
           "path": "README.md",
-          "sha256": "f3a435ddd2d7171214fbe545c7fb7c9a452a972c4eb030048b8b370a520eecc4",
-          "size": 4580
+          "sha256": "24998e957e16973e5c7145fa7b5c9a49bcdca9a49ba225c0cf822a15a667734d",
+          "size": 4905
         },
         {
           "path": "preset.json",
-          "sha256": "da4c1df74368aed2871ccca952f03142f28656023c29e2d7af01d62896f2cc89",
-          "size": 3249
+          "sha256": "56167afc23b293d7531df772f62fe62b5744c00c36b2c2cc5e8930efda6fb99f",
+          "size": 3646
         }
       ]
     },
