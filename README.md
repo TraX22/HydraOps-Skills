@@ -27,7 +27,7 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [comfyui-image-to-3d](comfyui-image-to-3d/) | An image turned into a 3D model with your local ComfyUI: which saved workflow to use, lighter models, an honest report (needs the ComfyUI connection) |
 | [unity-scene-assembly](unity-scene-assembly/) | Assembling scenes in Unity from the prefabs the project already has: measured placement, tidy roots, a review camera and a capture in the chat (needs the Unity connection) |
 | [unity-prefab-edit](unity-prefab-edit/) | Changing what a prefab is in Unity: a variant of a pack's piece, a default scale, a collider or component, a material, and swapping the copies in a scene (needs the Unity connection) |
-| [social-x](social-x/) | Posts, threads and replies for X |
+| [social-x](social-x/) | Posts, threads and replies for X; reading, engaging, messages, lists and trends on the connected accounts |
 | [social-youtube](social-youtube/) | Titles, descriptions, chapters, thumbnails, scripts and Shorts |
 | [social-tiktok](social-tiktok/) | Short-video scripts, captions and hashtags for TikTok |
 | [social-instagram](social-instagram/) | Reels, carousels, captions and Stories |
