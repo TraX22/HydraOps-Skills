@@ -2,7 +2,7 @@
   "schema": 1,
   "name": "comfyui",
   "title": "ComfyUI",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "HydraOps",
   "description": "The official MCP server from Comfy Org for a ComfyUI running on your own computer: validate a workflow, run it and follow the job, for images, video, audio and 3D models generated locally. Works with HydraOps' comfy_workflows tool, which prepares the workflows you saved and brings back the result.",
   "homepage": "https://docs.comfy.org/agent-tools/local",
@@ -10,8 +10,8 @@
     "command": "uvx",
     "args": [
       "--with",
-      "comfy-cli==1.22.0",
-      "comfy-mcp==0.10.0"
+      "comfy-cli==1.29.0",
+      "comfy-mcp==0.11.0"
     ],
     "cwd": "{{COMFYUI_PATH}}",
     "env": {
@@ -33,6 +33,7 @@
   "toolRisk": {
     "server_info": "neutral",
     "auth_status": "neutral",
+    "billing_status": "neutral",
     "auth_login": "acts",
     "run_workflow": "acts",
     "generate_image": "acts",
@@ -45,6 +46,7 @@
     "system_stats": "neutral",
     "free_memory": "acts",
     "fetch_outputs": "acts",
+    "preview_media": "acts",
     "launch_comfyui": "acts",
     "stop_comfyui": "acts",
     "restart_comfyui": "acts",
@@ -72,7 +74,7 @@
     "vary_workflow": "acts"
   },
   "tips": [
-    "Give an agent the comfy_workflows tool plus three tools of this connection instead of all 39: comfyui_validate_workflow, comfyui_run_workflow and comfyui_job. That is enough to run the workflows you saved in ComfyUI.",
+    "Give an agent the comfy_workflows tool plus three tools of this connection instead of all 41: comfyui_validate_workflow, comfyui_run_workflow and comfyui_job. That is enough to run the workflows you saved in ComfyUI.",
     "To change a value of a workflow before running it (a lighter model, another seed), add comfyui_list_workflow_slots and comfyui_set_workflow_slot.",
     "The template gallery (comfyui_search_templates, comfyui_get_template, comfyui_fetch_template) is content from the internet: after an agent reads it, each step that acts waits for your approval.",
     "Leave out the tools that change the install (update_comfyui, switch_comfyui_version, install_node, download_model) and partner_generate, which spends Comfy credits."
