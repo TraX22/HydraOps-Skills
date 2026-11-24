@@ -32,6 +32,21 @@ You can install these skills from inside the app (**Tools → Skills**) or copy 
 | [social-tiktok](social-tiktok/) | Short-video scripts, captions and hashtags for TikTok |
 | [social-instagram](social-instagram/) | Reels, carousels, captions and Stories |
 | [social-linkedin](social-linkedin/) | Professional posts and document carousels |
+| [product-marketing](product-marketing/) | The product marketing context: what the product is, who it is for, competition, objections, customer language and voice, which the other marketing skills read first |
+| [customer-research](customer-research/) | Analyzing transcripts, surveys and reviews, mining forums for what customers say, interviews, ranked themes and personas |
+| [content-strategy](content-strategy/) | What content to create: pillars and topic clusters, keywords by buyer stage, a scored priority list and distribution |
+| [competitors](competitors/) | Comparison and alternative pages: honest, sourced, with one data file per competitor |
+| [directory-submissions](directory-submissions/) | Submitting a product to startup, AI, agent, MCP and review directories: tiers, a description per directory type, Product Hunt, verifying each backlink |
+| [community-marketing](community-marketing/) | Designing, launching and growing a community: playbooks, platform choice and health metrics |
+| [public-relations](public-relations/) | Earned media: story angles, finding and pitching journalists, newsjacking, press page, podcast prep, crisis statements |
+| [emails](emails/) | Email sequences and lifecycle email: welcome, nurture, onboarding, re-engagement, win-back |
+| [marketing-ideas](marketing-ideas/) | 139 marketing ideas for a software product, picked by stage, budget and timeline |
+
+The nine marketing skills (from `product-marketing` to `marketing-ideas`) are adaptations of skills from
+[marketingskills](https://github.com/coreyhaines31/marketingskills) by Corey Haines, under the MIT License; each carries its
+`LICENSE.md`. The adaptation makes them work with what a HydraOps agent has: the product context is a file of a project (or a
+reply the agent finds again), the web and email go through HydraOps' tools, and nothing needs a terminal. The rest of that
+pack installs from GitHub in **Tools → Skills**.
 
 ## Connections
 

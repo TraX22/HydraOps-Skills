@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-11-24T11:47:04.466Z",
+  "generatedAt": "2026-11-24T16:34:03.625Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -104,6 +104,142 @@
       ]
     },
     {
+      "name": "community-marketing",
+      "description": "Design, launch and grow a community around a product - shared identity, value for members first, playbooks for starting from zero, growing, ambassadors and community-led support, choosing the platform and health metrics. Use for a Discord, Slack, forum or subreddit strategy.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "recall",
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "938a616abb4f7fb5ed55e86b3cc8c6700554da423614611fb536370a78413a18",
+          "size": 1422
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "b17f17db16648522952847ba6e57e9179b9e5ce46c05f7aa1fe3b0db720823c4",
+          "size": 10859
+        },
+        {
+          "path": "references/community-models.md",
+          "sha256": "6da82069b761bc557803d497b091c60c0798f921fe9c81c45c45bc4d7d7240cd",
+          "size": 4046
+        }
+      ]
+    },
+    {
+      "name": "competitors",
+      "description": "Write competitor comparison and alternative pages - '[X] alternative', '[X] alternatives', 'us vs [X]', '[A] vs [B]' - with honest, sourced comparisons, one data file per competitor and SEO targeting. Use for 'alternative page', 'vs page' or 'comparison page'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "web_search",
+        "fetch_url"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "0e3d127c6a3dfda286a0cc5abe3ef90b6d45438a8e3a7763331ce8a619a9599f",
+          "size": 1414
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "cbc516e9a0bb1bfc18c285db8dac39f06b7cbd76a2b9d8f8eae2f851c4081b72",
+          "size": 12774
+        },
+        {
+          "path": "references/content-architecture.md",
+          "sha256": "893b0bf30a630753bff02345029a96959ac359a5221467132d553d8e09a2d433",
+          "size": 7745
+        },
+        {
+          "path": "references/templates.md",
+          "sha256": "138f4367a45fc9cc775f9fd67324f8a6f1e1f5c3c1a90bd952db4731f080844f",
+          "size": 5649
+        }
+      ]
+    },
+    {
+      "name": "content-strategy",
+      "description": "Plan what content to create - searchable versus shareable pieces, pillars and topic clusters, keyword research by buyer stage, sources of ideas, a scored priority list and a distribution plan. Use for 'content strategy', 'what should I write about', 'blog strategy', 'topic clusters' or 'editorial calendar'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "web_search",
+        "fetch_url",
+        "calendar_add"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "67740e029396dad65330ffd0b1683ef30ba9490effd6c28a2ac80000966d9a2b",
+          "size": 1419
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "ac906c498a4101420476f0516b012ee45db8046ae150e3a05cf5f01bdc84f3f9",
+          "size": 20343
+        },
+        {
+          "path": "references/content-distribution.md",
+          "sha256": "1861a1aab0627ab29c279000879a9889242da1ba85e677acdc759c66a6241778",
+          "size": 5576
+        },
+        {
+          "path": "references/headless-cms.md",
+          "sha256": "146028cf2faecff5846c91eefcbe21c7d3e5ac43c73672150cdd8f83ea054f21",
+          "size": 8304
+        }
+      ]
+    },
+    {
+      "name": "customer-research",
+      "description": "Customer research - analyze transcripts, surveys, reviews and support tickets, mine reviews and forums for what people say, plan interviews and surveys, and turn it into ranked themes and personas. Use for 'customer research', 'ICP research', 'voice of customer', 'analyze these interviews' or 'who is my customer'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "web_search",
+        "fetch_url",
+        "youtube_transcript"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "29a8c20451b76fb8fa31bb4de75e103bf57c7ea6dfe0c6d9bab256a0c1dff472",
+          "size": 1420
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "f7092149f0adc958bda1d92067c3f8aed01d0c0c164fd98345a29e56263c55c8",
+          "size": 15849
+        },
+        {
+          "path": "references/interviews-and-surveys.md",
+          "sha256": "56adecdc40af1242464937100349fc1a161627394909551720494bc5ee537076",
+          "size": 8640
+        },
+        {
+          "path": "references/source-guides.md",
+          "sha256": "9cb18103092fe9f479c41c928072f3875100d006c87876a89cc7fd7cf342f937",
+          "size": 16075
+        }
+      ]
+    },
+    {
       "name": "deep-research",
       "description": "Multi-step web research that plans sub-questions, reads primary sources in full, cross-checks claims and reports findings with confidence levels and only verified citations. Use when the user asks for research, a comparison, a market or technical investigation, \"find out whether...\", or any answer that needs more than one search to be trustworthy.",
       "author": "HydraOps",
@@ -128,6 +264,90 @@
           "path": "references/source-evaluation.md",
           "sha256": "6d92e8f574320b7f40f337bd19dac8f4f0b97b8be8d0c7cc3a86bc36bf48a3cb",
           "size": 2899
+        }
+      ]
+    },
+    {
+      "name": "directory-submissions",
+      "description": "Plan and track submissions of a product to startup, SaaS, AI, agent, MCP and review directories for backlinks and discovery - readiness check, tiers, a different description per directory type, a Product Hunt timeline, reviews on G2 and Capterra, and verifying each backlink. Use for 'submit to directories', 'launch directories' or 'get listed'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "web_search",
+        "fetch_url",
+        "browser_read",
+        "browser_open",
+        "browser_act",
+        "calendar_add"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "87669b8ca0dbda464feab8f5f955f909d1c068aa12392ae318e656dfecc9493c",
+          "size": 1424
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "0f3981199507592d85424c614b82bb3901d1ebab2209284b63636d8cbe1d1edb",
+          "size": 28144
+        },
+        {
+          "path": "references/directory-list.md",
+          "sha256": "4e5191e9ed67e1cf73f7fd11117ddfff0c4f989d7b96fa6de657cccddc5450f4",
+          "size": 32754
+        },
+        {
+          "path": "references/positioning-variations.md",
+          "sha256": "6c1bad13b03dbde87e24e3751d56c7259297cecbd1d022d8199168abb6ebead8",
+          "size": 9409
+        },
+        {
+          "path": "references/submission-tracker-template.md",
+          "sha256": "81ada15edbd6b2fbad5cff99fdecc42f62801835d4be536f288ca42be1eb2136",
+          "size": 29212
+        }
+      ]
+    },
+    {
+      "name": "emails",
+      "description": "Email sequences and lifecycle email - welcome, lead nurture, onboarding, re-engagement, win-back and campaigns - with timing, subject lines, one job per email and copy rules. Use for 'email sequence', 'drip campaign', 'nurture sequence', 'onboarding emails' or 'what emails should I send'. Not for cold outreach.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "gmail_draft",
+        "gmail_send"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "2e9bf697b92c9624ddd852dcd6e1381822649c476d0a0e317043ba47930ed4fe",
+          "size": 1409
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "d5b21fd08314bc7179fa18205c841641bd685f4735143f8a71249db19edce949",
+          "size": 11419
+        },
+        {
+          "path": "references/copy-guidelines.md",
+          "sha256": "02f08897e4aa99ecc4ec1893d61d0c26d0c5e62e09af26f175087455e9b68e01",
+          "size": 2332
+        },
+        {
+          "path": "references/email-types.md",
+          "sha256": "a5dd4f0555a7b21d2ff426948d15657825b9d16265652563f5e272d2e1879bfd",
+          "size": 14250
+        },
+        {
+          "path": "references/sequence-templates.md",
+          "sha256": "f8f318f10e29abcd009cbee29e2bd178981d96c973099b508d30af6c10ab8d79",
+          "size": 3909
         }
       ]
     },
@@ -178,6 +398,136 @@
           "path": "references/examples.md",
           "sha256": "2f00ffab4074c9de8ca411eda36c75958607c89e52f0390ff581bfd5288967f3",
           "size": 3588
+        }
+      ]
+    },
+    {
+      "name": "marketing-ideas",
+      "description": "A library of 139 marketing ideas for a software product, picked by stage, budget and timeline, with the top ideas for common situations (leads fast, low budget, building authority). Use for 'marketing ideas', 'growth ideas', 'how do I market this' or 'ways to promote'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "recall"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "79d15b89e2e6ef4e943e3787c9c7a66909c6efad2d5895e86e31bf80f62c6954",
+          "size": 1418
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "329fa0f32d24bcc5331258db933055b4a496f42d339c1e0942d58ba7614e640b",
+          "size": 6350
+        },
+        {
+          "path": "references/guerrilla-marketing.md",
+          "sha256": "07b0534b579ce1916a60e79ab426cd936e78b4b261802d6486ad145f7bf552ae",
+          "size": 5033
+        },
+        {
+          "path": "references/ideas-by-category.md",
+          "sha256": "8b6aa55b3255616ea80c0ea45eca8f2bb70e528510ed76f6392e71475dd0c09b",
+          "size": 15400
+        }
+      ]
+    },
+    {
+      "name": "product-marketing",
+      "description": "Create and maintain the product marketing context - the one document that says what the product is, who it is for, the competition, objections, customer language and brand voice - which the other marketing skills read before asking. Use for positioning, target audience, ICP or 'set up my marketing context'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "fetch_url",
+        "recall",
+        "remember"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "b0b6e7781338540a1388ff868aaa539b6bc6bd86ac89d70593662e0fe9176cfb",
+          "size": 1420
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "1f2ff05276ef19fdb9d71a7879cd9fcac330951883aee66b5c0b883ab24f0710",
+          "size": 15649
+        },
+        {
+          "path": "references/brand-voice.md",
+          "sha256": "a8690f8df14407178f6ed584a4d86d0d8c8daa637d0ed771b80c6defa5d76655",
+          "size": 8452
+        }
+      ]
+    },
+    {
+      "name": "public-relations",
+      "description": "Earned media for software products (not pull requests) - when PR is worth it, story angles, finding and pitching journalists, newsjacking, press page and media kit, podcast guest prep, statements and crisis communications. Use for 'press', 'press release', 'pitch a journalist', 'get featured' or 'podcast guest'.",
+      "author": "Corey Haines, adapted for HydraOps",
+      "version": "1.0.0",
+      "tools": [
+        "project_read",
+        "project_write",
+        "recall",
+        "web_search",
+        "fetch_url",
+        "youtube_transcript",
+        "gmail_draft",
+        "gmail_send"
+      ],
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "7d121f7db4181734a694e0d2bd3df394e59a4b175ec92b241c4af895f6124ee1",
+          "size": 1419
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "08d23d9da9e4b0d5e4f996151e861dcad74968c8c4738e4a5ece519e7cc033c5",
+          "size": 11416
+        },
+        {
+          "path": "references/crisis-communications.md",
+          "sha256": "55a00b7d23af710a4fe23b695707c1cc361ac94673bcd93ca76a2be0c0834aea",
+          "size": 8599
+        },
+        {
+          "path": "references/journalist-pitching.md",
+          "sha256": "a53eacc2190f43ed50dffc613b551baf884a279fd5e403f575660316bae6a4e8",
+          "size": 11326
+        },
+        {
+          "path": "references/media-outlets.md",
+          "sha256": "2c9b3093aa34ba59d540df962ac3550318bd2df5fbbd5ed14bbf37a118c7b696",
+          "size": 9333
+        },
+        {
+          "path": "references/newsjacking.md",
+          "sha256": "a3ca83f77f113b24e97d284458caceefaea787947f23996002038241d2aa9220",
+          "size": 8570
+        },
+        {
+          "path": "references/podcast-guest-prep.md",
+          "sha256": "fc967599dc165305374fc48b014921b0cdd0e1141f01332ac05c3891a9450b70",
+          "size": 5590
+        },
+        {
+          "path": "references/press-platforms.md",
+          "sha256": "e999335222a30df0954e324e6d35ea269c5d9228c609c0f33bc1d2bb528fb244",
+          "size": 6909
+        },
+        {
+          "path": "references/statement-templates.md",
+          "sha256": "65bfd1995ddcacd9dadaaa9174b586c831e857ac163b0f53ec35ff9e4f81fc52",
+          "size": 5637
+        },
+        {
+          "path": "references/story-angles.md",
+          "sha256": "2fc3597707d8eab35dc021e2e0e79af82b56283cb8bc024011e78b995e56db07",
+          "size": 6509
         }
       ]
     },
