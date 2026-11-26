@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-11-24T16:34:03.625Z",
+  "generatedAt": "2026-11-26T15:07:06.400Z",
   "skills": [
     {
       "name": "blender-game-export",
@@ -647,10 +647,11 @@
       "name": "social-x",
       "description": "Write and publish posts, threads and replies for X (formerly Twitter) - hooks, thread structure, reply strategy, link placement, hashtags, cadence, repurposing - and work the user's connected accounts with the x_* tools - read mentions, timelines and metrics, search, reply, like, repost, follow, lists, direct messages, Spaces and trends, every action under the user's approval. Use when the user wants a tweet, an X post or thread, a reply, a launch announcement for X, to adapt other content for X, to publish on X, to see what is being said about them or a topic on X, to answer a mention or a message, or to act on X.",
       "author": "HydraOps",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "tools": [
         "web_search",
         "fetch_url",
+        "calendar_add",
         "x_accounts",
         "x_post",
         "x_read",
@@ -664,8 +665,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "3a32eb8b7305d83f66b171b1d59085990a22b06e404ebb7d7c1b43d1e10f46fb",
-          "size": 12663
+          "sha256": "adcf15e9addf22d1ecf22cc7843cd974df6bd2ba4826f27a1619c1011bb1aece",
+          "size": 13180
         },
         {
           "path": "templates/post-and-thread.md",
