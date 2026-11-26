@@ -3,8 +3,8 @@ name: social-x
 description: Write and publish posts, threads and replies for X (formerly Twitter) - hooks, thread structure, reply strategy, link placement, hashtags, cadence, repurposing - and work the user's connected accounts with the x_* tools - read mentions, timelines and metrics, search, reply, like, repost, follow, lists, direct messages, Spaces and trends, every action under the user's approval. Use when the user wants a tweet, an X post or thread, a reply, a launch announcement for X, to adapt other content for X, to publish on X, to see what is being said about them or a topic on X, to answer a mention or a message, or to act on X.
 metadata:
   author: HydraOps
-  version: 1.2.0
-  tools: [web_search, fetch_url, x_accounts, x_post, x_read, x_search, x_engage, x_users, x_dm, x_lists, x_explore]
+  version: 1.3.0
+  tools: [web_search, fetch_url, calendar_add, x_accounts, x_post, x_read, x_search, x_engage, x_users, x_dm, x_lists, x_explore]
 ---
 
 # X (Twitter)
@@ -155,8 +155,14 @@ Everything below follows the same three rules:
    or `x_search`), no @handle needed unless you mean to mention them. To quote, `quote`.
    A poll goes on the first part, with no attachments there. `reply_settings` limits who
    may reply when the user wants that.
-4. **Later, not now.** With `publish_at` (a date and time, with the user's zone) the post
-   goes into the calendar once approved and is published then, exactly as approved.
+4. **Later, not now.** A post for another day or hour is scheduled through the calendar:
+   `calendar_add` with kind `action`, the date and time, and the finished post in `call`
+   (tool `x_post`, with the same arguments `x_post` takes). The user approves that card
+   once, seeing the post and its date, and it is published then exactly as approved.
+   Never schedule a task that tells an agent to publish the text later: its card shows
+   an instruction, not the post, and the user is asked again at an hour when they may
+   not be there. One entry for each date. (In a HydraOps before 0.1.107, where
+   `calendar_add` takes no `call`, `x_post` takes `publish_at` for this.)
 5. **The user decides.** Approved: answer with the link the tool returns. Rejected: do
    not resend the same text with cosmetic changes; ask what to change, or stop if the
    user said no. Never split a rejected thread into single posts to get it through.
